@@ -15,7 +15,6 @@ type Character interface {
 
 type CharacterImpl struct {
 	Name      string
-	HP        int
 	Stats     Stats
 	Level     int
 	CurrentXp int
@@ -27,6 +26,7 @@ type Stats struct {
 	Str   int
 	Const int
 	Dex   int
+	Int   int
 	Luck  int
 }
 
@@ -56,6 +56,13 @@ func printChooseClass() {
 
 func printChooseStats() {
 	fmt.Print(stringsRPG.SetStats)
+}
+
+func printCurrentStats(c CharacterImpl) {
+	fmt.Print(stringsRPG.Separator)
+	fmt.Println("Current Stats:")
+	fmt.Printf("HP: %d\nStrength: %d\nConst: %d\nDexterity: %d\nIntelligence: %d\nLuck: %d\n",
+		c.Stats.HP, c.Stats.Str, c.Stats.Const, c.Stats.Dex, c.Stats.Int, c.Stats.Luck)
 }
 
 /*** Character Functions **/
@@ -114,6 +121,7 @@ func (c *CharacterImpl) Create() {
 	fmt.Printf("\nSelected class: %v\n", c.Class)
 
 	printChooseStats()
+	c.SetStats()
 }
 
 func (c *CharacterImpl) SetName(name string) {
@@ -121,7 +129,41 @@ func (c *CharacterImpl) SetName(name string) {
 }
 
 func (c *CharacterImpl) SetStats() {
+	switch c.Class {
+	case WARRIOR:
+		c.Stats.HP = WAR_HP
+		c.Stats.Str = WAR_STR
+		c.Stats.Const = WAR_CONST
+		c.Stats.Dex = WAR_DEX
+		c.Stats.Int = WAR_INT
+		c.Stats.Luck = WAR_LUCK
 
+	case ROGUE:
+		c.Stats.HP = ROG_HP
+		c.Stats.Str = ROG_STR
+		c.Stats.Const = ROG_CONST
+		c.Stats.Dex = ROG_DEX
+		c.Stats.Int = ROG_INT
+		c.Stats.Luck = ROG_LUCK
+
+	case WIZARD:
+		c.Stats.HP = WIZ_HP
+		c.Stats.Str = WIZ_STR
+		c.Stats.Const = WIZ_CONST
+		c.Stats.Dex = WIZ_DEX
+		c.Stats.Int = WIZ_INT
+		c.Stats.Luck = WIZ_LUCK
+
+	case BARBARIAN:
+		c.Stats.HP = BAR_HP
+		c.Stats.Str = BAR_STR
+		c.Stats.Const = BAR_CONST
+		c.Stats.Dex = BAR_DEX
+		c.Stats.Int = BAR_INT
+		c.Stats.Luck = BAR_LUCK
+	}
+
+	printCurrentStats(*c)
 }
 
 func (c *CharacterImpl) SetClass(class CLASS) { // Assumes class is a valid int that belongs to an existing class
