@@ -1,24 +1,20 @@
 package character
 
 import (
+	"autorpg/item"
 	stringsRPG "autorpg/strings"
 	"autorpg/utils"
 	"fmt"
 )
-
-type Character interface {
-	Create()
-	SetName(string)
-	SetStats()
-	SetClass(CLASS)
-}
 
 type CharacterImpl struct {
 	Name      string
 	Stats     Stats
 	Level     int
 	CurrentXp int
-	Class     CLASS
+	Class     Class
+	Weapon    item.Weapon
+	Armor     item.Armor
 }
 
 type Stats struct {
@@ -224,9 +220,13 @@ func (c *CharacterImpl) SetStats() {
 	}
 
 	printCurrentStats(*c)
+
+	weapon, armor := GetWarriorDefaults()
+	c.AttachItem(weapon)
+	c.AttachItem(armor)
 }
 
-func (c *CharacterImpl) SetClass(class CLASS) { // Assumes class is a valid int that belongs to an existing class
+func (c *CharacterImpl) SetClass(class Class) { // Assumes class is a valid int that belongs to an existing class
 	c.Class = class
 }
 
@@ -271,4 +271,26 @@ func (c *CharacterImpl) AddPoints() {
 		c.Stats.Int += 5
 		c.Stats.Luck += 1
 	}
+}
+
+func (c *CharacterImpl) AttachItem(i item.Item) {
+	if i.GetType() == item.WEAPON {
+		c.Weapon = item.Weapon(i)
+	} else {
+		c.Armor = item.Armor(i)
+	}
+}
+
+func (c *CharacterImpl) RemoveItem(i item.Item) {
+
+}
+
+func (c CharacterImpl) CheckLevelItem(i item.Item) bool {
+	return c.Level >= i.GetLevel()
+}
+
+func (c CharacterImpl) CheckStatRequirementsItem(i item.Item) bool {
+	return c.Stats.Str >= i.GetStrReq() &&
+		c.Stats.Dex >= i.GetDexReq() &&
+		c.Stats.Int >= i.GetIntReq()
 }

@@ -1,9 +1,11 @@
 package character
 
-type CLASS int
+import "autorpg/item"
+
+type Class int
 
 const (
-	WARRIOR CLASS = iota
+	WARRIOR Class = iota
 	ROGUE
 	WIZARD
 	BARBARIAN
@@ -25,6 +27,35 @@ const (
 	WAR_LUCK     = 5
 	WAR_LUCK_UP  = 2
 )
+
+func GetWarriorDefaults() (item.Weapon, item.Armor) {
+	warWeapon := item.WeaponImpl{
+		Item: item.ItemImpl{
+			Name:   "Basic Sword",
+			Level:  1,
+			Type:   item.WEAPON,
+			StrReq: 1,
+			DexReq: 1,
+			IntReq: 1,
+		},
+		DamageType: item.NORMAL,
+		Damage:     5,
+	}
+
+	warArmor := item.ArmorImpl{
+		Item: item.ItemImpl{
+			Name:   "Basic Plate",
+			Level:  1,
+			Type:   item.ARMOR,
+			StrReq: 1,
+			DexReq: 1,
+			IntReq: 1,
+		},
+		Defense: 2,
+	}
+
+	return warWeapon, warArmor
+}
 
 /*** ROGUE Defaults **/
 const (
@@ -71,7 +102,7 @@ const (
 	BAR_LUCK_UP  = 1
 )
 
-func (c CLASS) String() string {
+func (c Class) String() string {
 	switch c {
 	case WARRIOR:
 		return "Warrior"
