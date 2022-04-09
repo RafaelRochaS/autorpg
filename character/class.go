@@ -38,8 +38,9 @@ func GetWarriorDefaults() (item.Weapon, item.Armor) {
 			DexReq: 1,
 			IntReq: 1,
 		},
-		DamageType: item.NORMAL,
-		Damage:     5,
+		DamageType:  item.NORMAL,
+		Damage:      5,
+		AttackSpeed: 1.6,
 	}
 
 	warArmor := item.ArmorImpl{
@@ -51,7 +52,7 @@ func GetWarriorDefaults() (item.Weapon, item.Armor) {
 			DexReq: 1,
 			IntReq: 1,
 		},
-		Defense: 2,
+		Defense: 4,
 	}
 
 	return warWeapon, warArmor
@@ -72,6 +73,36 @@ const (
 	ROG_LUCK_UP  = 2
 )
 
+func GetRogueDefaults() (item.Weapon, item.Armor) {
+	warWeapon := item.WeaponImpl{
+		Item: item.ItemImpl{
+			Name:   "Basic Dagger",
+			Level:  1,
+			Type:   item.WEAPON,
+			StrReq: 1,
+			DexReq: 1,
+			IntReq: 1,
+		},
+		DamageType:  item.NORMAL,
+		Damage:      3,
+		AttackSpeed: 0.4,
+	}
+
+	warArmor := item.ArmorImpl{
+		Item: item.ItemImpl{
+			Name:   "Basic Leather",
+			Level:  1,
+			Type:   item.ARMOR,
+			StrReq: 1,
+			DexReq: 1,
+			IntReq: 1,
+		},
+		Defense: 2,
+	}
+
+	return warWeapon, warArmor
+}
+
 /*** WIZARD Defaults **/
 const (
 	WIZ_HP       = 13
@@ -87,6 +118,36 @@ const (
 	WIZ_LUCK_UP  = 3
 )
 
+func GetWizardDefaults() (item.Weapon, item.Armor) {
+	warWeapon := item.WeaponImpl{
+		Item: item.ItemImpl{
+			Name:   "Basic Staff",
+			Level:  1,
+			Type:   item.WEAPON,
+			StrReq: 1,
+			DexReq: 1,
+			IntReq: 1,
+		},
+		DamageType:  item.MAGICAL,
+		Damage:      6,
+		AttackSpeed: 1.6,
+	}
+
+	warArmor := item.ArmorImpl{
+		Item: item.ItemImpl{
+			Name:   "Basic Robe",
+			Level:  1,
+			Type:   item.ARMOR,
+			StrReq: 1,
+			DexReq: 1,
+			IntReq: 1,
+		},
+		Defense: 1,
+	}
+
+	return warWeapon, warArmor
+}
+
 /*** BARBARIAN Defaults **/
 const (
 	BAR_HP       = 24
@@ -101,6 +162,36 @@ const (
 	BAR_LUCK     = 5
 	BAR_LUCK_UP  = 1
 )
+
+func GetBarbarianDefaults() (item.Weapon, item.Armor) {
+	warWeapon := item.WeaponImpl{
+		Item: item.ItemImpl{
+			Name:   "Basic Club",
+			Level:  1,
+			Type:   item.WEAPON,
+			StrReq: 1,
+			DexReq: 1,
+			IntReq: 1,
+		},
+		DamageType:  item.NORMAL,
+		Damage:      8,
+		AttackSpeed: 3.6,
+	}
+
+	warArmor := item.ArmorImpl{
+		Item: item.ItemImpl{
+			Name:   "Basic Chainmail",
+			Level:  1,
+			Type:   item.ARMOR,
+			StrReq: 1,
+			DexReq: 1,
+			IntReq: 1,
+		},
+		Defense: 4,
+	}
+
+	return warWeapon, warArmor
+}
 
 func (c Class) String() string {
 	switch c {

@@ -18,4 +18,5 @@ type Weapon interface {
 	Item
 	GetDamage() int
 	GetDamageType() DamageType
+	GetAttackSpeed() float32
 }

@@ -7,8 +7,9 @@ type Character interface {
 	SetName(string)
 	SetStats()
 	SetClass(Class)
-	AttachItem(item.Item)
-	RemoveItem(item.Item)
+	AttachWeapon(item.Weapon)
+	AttachArmor(item.Armor)
+	RemoveItem(item.ItemType)
 	CheckLevelItem(item.Item) bool
 	CheckStatRequirementsItem(item.Item) bool
 }

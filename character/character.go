@@ -96,6 +96,24 @@ Class: %v`, c.Name, c.Class)
 	printCurrentStats(c)
 }
 
+func printGear(c CharacterImpl) {
+	fmt.Print(stringsRPG.Separator)
+	fmt.Print("\nCurrently equipped gear:\n")
+	fmt.Printf(`
+Weapon:
+%v
+Level: %d
+Damage: %d
+Damage Type: %v
+Attack Speed: %.2f`, c.Weapon.GetName(), c.Weapon.GetLevel(), c.Weapon.GetDamage(), c.Weapon.GetDamageType(), c.Weapon.GetAttackSpeed())
+	fmt.Println()
+	fmt.Printf(`
+Armor:
+%v
+Level: %d
+Defense: %d`, c.Armor.GetName(), c.Armor.GetLevel(), c.Armor.GetDefense())
+}
+
 /*** Character Functions **/
 
 func (c *CharacterImpl) Create() {
@@ -158,6 +176,29 @@ func (c *CharacterImpl) Create() {
 	c.AddPoints()
 
 	printChar(*c)
+
+	var weapon item.Weapon
+	var armor item.Armor
+
+	if utils.DEBUG != "True" {
+		switch c.Class {
+		case WARRIOR:
+			weapon, armor = GetWarriorDefaults()
+		case ROGUE:
+			weapon, armor = GetRogueDefaults()
+		case WIZARD:
+			weapon, armor = GetWizardDefaults()
+		case BARBARIAN:
+			weapon, armor = GetBarbarianDefaults()
+		}
+	} else {
+		weapon, armor = GetWizardDefaults()
+	}
+
+	c.AttachWeapon(weapon)
+	c.AttachArmor(armor)
+
+	printGear(*c)
 }
 
 func (c *CharacterImpl) SetName(name string) {
@@ -220,10 +261,6 @@ func (c *CharacterImpl) SetStats() {
 	}
 
 	printCurrentStats(*c)
-
-	weapon, armor := GetWarriorDefaults()
-	c.AttachItem(weapon)
-	c.AttachItem(armor)
 }
 
 func (c *CharacterImpl) SetClass(class Class) { // Assumes class is a valid int that belongs to an existing class
@@ -273,16 +310,21 @@ func (c *CharacterImpl) AddPoints() {
 	}
 }
 
-func (c *CharacterImpl) AttachItem(i item.Item) {
-	if i.GetType() == item.WEAPON {
-		c.Weapon = item.Weapon(i)
-	} else {
-		c.Armor = item.Armor(i)
-	}
+func (c *CharacterImpl) AttachWeapon(w item.Weapon) {
+	c.Weapon = w
 }
 
-func (c *CharacterImpl) RemoveItem(i item.Item) {
+func (c *CharacterImpl) AttachArmor(w item.Armor) {
+	c.Armor = w
+}
 
+func (c *CharacterImpl) RemoveItem(t item.ItemType) {
+	switch t {
+	case item.ARMOR:
+		c.Armor = &item.ArmorImpl{}
+	case item.WEAPON:
+		c.Weapon = &item.WeaponImpl{}
+	}
 }
 
 func (c CharacterImpl) CheckLevelItem(i item.Item) bool {
