@@ -35,3 +35,11 @@ func ReadString() string {
 
 	return text
 }
+
+func ReadInt() int {
+	var num int
+	fmt.Print("-> ")
+	fmt.Scanf("%d", &num)
+
+	return num
+}
