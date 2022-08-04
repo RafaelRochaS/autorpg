@@ -2,19 +2,17 @@ package character
 
 import (
 	"autorpg/item"
+	"autorpg/person"
 	stringsRPG "autorpg/strings"
 	"autorpg/utils"
 	"fmt"
 )
 
 type CharacterImpl struct {
-	Name      string
+	Person    person.Person
 	Stats     Stats
-	Level     int
 	CurrentXp int
 	Class     Class
-	Weapon    item.Weapon
-	Armor     item.Armor
 }
 
 type Stats struct {
@@ -91,7 +89,7 @@ func printChar(c CharacterImpl) {
 	fmt.Println("Done! Your character is created:")
 	fmt.Printf(`
 Name: %v
-Class: %v`, c.Name, c.Class)
+Class: %v`, c.Person.Name, c.Class)
 
 	printCurrentStats(c)
 }
@@ -105,13 +103,13 @@ Weapon:
 Level: %d
 Damage: %d
 Damage Type: %v
-Attack Speed: %.2f`, c.Weapon.GetName(), c.Weapon.GetLevel(), c.Weapon.GetDamage(), c.Weapon.GetDamageType(), c.Weapon.GetAttackSpeed())
+Attack Speed: %.2f`, c.Person.Weapon.GetName(), c.Person.Weapon.GetLevel(), c.Person.Weapon.GetDamage(), c.Person.Weapon.GetDamageType(), c.Person.Weapon.GetAttackSpeed())
 	fmt.Println()
 	fmt.Printf(`
 Armor:
 %v
 Level: %d
-Defense: %d`, c.Armor.GetName(), c.Armor.GetLevel(), c.Armor.GetDefense())
+Defense: %d`, c.Person.Armor.GetName(), c.Person.Armor.GetLevel(), c.Person.Armor.GetDefense())
 }
 
 /*** Character Functions **/
@@ -127,7 +125,7 @@ func (c *CharacterImpl) Create() {
 		c.SetName("Joe Do Debug")
 	}
 
-	fmt.Printf("\nCool, '%v', that's a good name, I guess. I don't really know.\n", c.Name)
+	fmt.Printf("\nCool, '%v', that's a good name, I guess. I don't really know.\n", c.Person.Name)
 
 	printChooseClass()
 	var class int
@@ -202,7 +200,7 @@ func (c *CharacterImpl) Create() {
 }
 
 func (c *CharacterImpl) SetName(name string) {
-	c.Name = name
+	c.Person.Name = name
 }
 
 func (c *CharacterImpl) SetStats() {
@@ -311,24 +309,24 @@ func (c *CharacterImpl) AddPoints() {
 }
 
 func (c *CharacterImpl) AttachWeapon(w item.Weapon) {
-	c.Weapon = w
+	c.Person.Weapon = w
 }
 
 func (c *CharacterImpl) AttachArmor(w item.Armor) {
-	c.Armor = w
+	c.Person.Armor = w
 }
 
 func (c *CharacterImpl) RemoveItem(t item.ItemType) {
 	switch t {
 	case item.ARMOR:
-		c.Armor = &item.ArmorImpl{}
+		c.Person.Armor = &item.ArmorImpl{}
 	case item.WEAPON:
-		c.Weapon = &item.WeaponImpl{}
+		c.Person.Weapon = &item.WeaponImpl{}
 	}
 }
 
 func (c CharacterImpl) CheckLevelItem(i item.Item) bool {
-	return c.Level >= i.GetLevel()
+	return c.Person.Level >= i.GetLevel()
 }
 
 func (c CharacterImpl) CheckStatRequirementsItem(i item.Item) bool {
