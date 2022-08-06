@@ -3,9 +3,11 @@ package utils
 import (
 	"bufio"
 	"fmt"
+	"math/rand"
 	"os"
 	"os/exec"
 	"strings"
+	"time"
 )
 
 func ClearScreen() {
@@ -42,4 +44,10 @@ func ReadInt() int {
 	fmt.Scanf("%d", &num)
 
 	return num
+}
+
+func GetRandomNumberInRange(min, max int) int {
+	rand.Seed(time.Now().UnixNano())
+
+	return rand.Intn(max-min+1) + min
 }
