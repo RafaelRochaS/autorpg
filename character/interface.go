@@ -12,4 +12,5 @@ type Character interface {
 	RemoveItem(item.ItemType)
 	CheckLevelItem(item.Item) bool
 	CheckStatRequirementsItem(item.Item) bool
+	LevelUp()
 }

@@ -9,4 +9,5 @@ type Enemy interface {
 	GetArmor() item.Armor
 	GetXpGiven() int
 	GetHP() int
+	GetDrop() item.Item
 }

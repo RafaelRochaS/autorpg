@@ -12,7 +12,7 @@ type EnemyImpl struct {
 	PlayerLevel int
 }
 
-func NewEnemy(playerLevel int) *EnemyImpl {
+func NewEnemy(playerLevel int) Enemy {
 	enemy := &EnemyImpl{}
 	enemy.PlayerLevel = playerLevel
 
