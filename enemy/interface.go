@@ -10,4 +10,5 @@ type Enemy interface {
 	GetXpGiven() int
 	GetHP() int
 	GetDrop() item.Item
+	String() string
 }

@@ -3,6 +3,7 @@ package enemy
 import (
 	"autorpg/item"
 	"autorpg/person"
+	"fmt"
 )
 
 type EnemyImpl struct {
@@ -48,4 +49,20 @@ func (e EnemyImpl) GetArmor() item.Armor {
 
 func (e EnemyImpl) GetXpGiven() int {
 	return e.XpGiven
+}
+
+func (e EnemyImpl) GetHP() int {
+	return e.HP
+}
+
+func (e EnemyImpl) GetDrop() item.Item {
+
+}
+
+func (e EnemyImpl) String() string {
+	str := "Current Enemy:\n"
+	str += fmt.Sprintf("Name: %d\n", e.GetName())
+	str += fmt.Sprintf("Level: %d\n", e.GetLevel())
+
+	return str
 }
