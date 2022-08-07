@@ -26,6 +26,8 @@ func (e *EnemyImpl) instantiate() {
 	e.XpGiven = getXpGiven(e.Person.Level, e.PlayerLevel)
 	e.HP = getHP(e.Person.Level)
 	e.Person.Name = getRandomNameByLevel(e.Person.Level)
+	e.Person.Weapon = getWeaponByLevel(e.Person.Level)
+	e.Person.Armor = getArmorByLevel(e.Person.Level)
 }
 
 func (e EnemyImpl) GetName() string {

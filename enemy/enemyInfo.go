@@ -7,6 +7,8 @@ import (
 
 const LEVEL_DIFFERENCE = 3
 const LEVEL_DIFFERENCE_WEAPON = 10
+const LEVEL_DIFFERENCE_ARMOR_DEFENSE = 5
+const LEVEL_DIFFERENCE_ARMOR_WEIGHT = 10
 
 /* Naming Scheme:
 Level 1-10: first name level 1 last name level 1
@@ -109,29 +111,6 @@ func makeWeaponItem(level int) item.Item {
 	return weaponItem
 }
 
-func getWeaponDamageType() item.DamageType {
-	number := utils.GetRandomNumberInRange(0, 1)
-
-	if number != 0 {
-		return item.MAGICAL
-	} else {
-		return item.NORMAL
-	}
-}
-
-func getWeaponDamageAndAttackSpeed(level int) (int, float32) {
-	damage := utils.GetRandomNumberInRange(level-LEVEL_DIFFERENCE_WEAPON, level+LEVEL_DIFFERENCE_WEAPON)
-	var attackSpeed float32
-
-	if damage > level {
-		attackSpeed = utils.GetRandomFloatInRange(0.5, 1.5)
-	} else {
-		attackSpeed = utils.GetRandomFloatInRange(1.5, 3)
-	}
-
-	return damage, attackSpeed
-}
-
 func nameWeapon(level int) string {
 	name := ""
 
@@ -165,6 +144,52 @@ func nameWeapon(level int) string {
 	}
 
 	return name
+}
+
+func getWeaponDamageType() item.DamageType {
+	number := utils.GetRandomNumberInRange(0, 1)
+
+	if number != 0 {
+		return item.MAGICAL
+	} else {
+		return item.NORMAL
+	}
+}
+
+func getWeaponDamageAndAttackSpeed(level int) (int, float32) {
+	damage := utils.GetRandomNumberInRange(level-LEVEL_DIFFERENCE_WEAPON, level+LEVEL_DIFFERENCE_WEAPON)
+	var attackSpeed float32
+
+	if damage > level {
+		attackSpeed = utils.GetRandomFloatInRange(0.5, 1.5)
+	} else {
+		attackSpeed = utils.GetRandomFloatInRange(1.5, 3)
+	}
+
+	return damage, attackSpeed
+}
+
+func getArmorByLevel(level int) item.Armor {
+	armor := item.ArmorImpl{}
+
+	armor.Item = makeArmorItem(level)
+	armor.Defense = utils.GetRandomNumberInRange(level-LEVEL_DIFFERENCE_ARMOR_DEFENSE, level+LEVEL_DIFFERENCE_ARMOR_DEFENSE)
+	armor.Weight = utils.GetRandomNumberInRange(level-LEVEL_DIFFERENCE_ARMOR_WEIGHT, level+LEVEL_DIFFERENCE_ARMOR_WEIGHT)
+
+	return armor
+}
+
+func makeArmorItem(level int) item.Item {
+	armorItem := item.ItemImpl{}
+
+	armorItem.Name = nameArmor(level)
+	armorItem.Level = level
+	armorItem.Type = item.ARMOR
+	armorItem.StrReq = 0
+	armorItem.DexReq = 0
+	armorItem.IntReq = 0
+
+	return armorItem
 }
 
 func nameArmor(level int) string {
