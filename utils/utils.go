@@ -49,5 +49,27 @@ func ReadInt() int {
 func GetRandomNumberInRange(min, max int) int {
 	rand.Seed(time.Now().UnixNano())
 
+	if min < 0 {
+		min = 0
+	}
+
+	if max < 0 {
+		max = 0
+	}
+
 	return rand.Intn(max-min+1) + min
+}
+
+func GetRandomFloatInRange(min, max float32) float32 {
+	rand.Seed(time.Now().UnixNano())
+
+	if min < 0 {
+		min = 0
+	}
+
+	if max < 0 {
+		max = 0
+	}
+
+	return rand.Float32() + max - min
 }

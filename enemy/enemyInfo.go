@@ -6,6 +6,7 @@ import (
 )
 
 const LEVEL_DIFFERENCE = 3
+const LEVEL_DIFFERENCE_WEAPON = 10
 
 /* Naming Scheme:
 Level 1-10: first name level 1 last name level 1
@@ -23,20 +24,20 @@ var firstNames_3 = []string{"Champion", "Legolas", "Charger", "BattleMage"}
 var lastNames_3 = []string{"Next Level", "MFer", "Hardcore", "Killer"}
 
 /** WEAPONS **/
-var weaponFirstNames_1 = []string{"Foot Soldier", "Foot Archer", "Foot Horsemen", "Foot Wizard"}
-var weaponLastNames_1 = []string{"Weak boy", "Trash tier", "No skill", "N00b"}
-var weaponFirstNames_2 = []string{"Sargeant", "Ranger", "Knight", "Mage"}
-var weaponLastNames_2 = []string{"Upcoming", "Kinda good", "Shows promise", "Getting there"}
-var weaponFirstNames_3 = []string{"Champion", "Legolas", "Charger", "BattleMage"}
-var weaponLastNames_3 = []string{"Next Level", "MFer", "Hardcore", "Killer"}
+var weaponFirstNames_1 = []string{"Basic Sword", "Basic Spear", "Basic Bow", "Basic Staff"}
+var weaponLastNames_1 = []string{"of the Little Bitch", "that kinda sucks", "that is dull", "that needs repair"}
+var weaponFirstNames_2 = []string{"Good Sword", "Good Spear", "Good Bow", "Good Staff"}
+var weaponLastNames_2 = []string{"that could be better", "that does the job", "that kinda works", "good enough"}
+var weaponFirstNames_3 = []string{"Epic Sword", "Devastating Spear", "Mythical Bow", "Staff do Caralho"}
+var weaponLastNames_3 = []string{"that vaporizes", "that kills'em all", "that blows, in a good way", "that destroys"}
 
 /** ARMOR **/
-var armorFirstNames_1 = []string{"Foot Soldier", "Foot Archer", "Foot Horsemen", "Foot Wizard"}
-var armorLastNames_1 = []string{"Weak boy", "Trash tier", "No skill", "N00b"}
-var armorFirstNames_2 = []string{"Sargeant", "Ranger", "Knight", "Mage"}
-var armorLastNames_2 = []string{"Upcoming", "Kinda good", "Shows promise", "Getting there"}
-var armorFirstNames_3 = []string{"Champion", "Legolas", "Charger", "BattleMage"}
-var armorLastNames_3 = []string{"Next Level", "MFer", "Hardcore", "Killer"}
+var armorFirstNames_1 = []string{"Basic Mail", "Basic Leather", "Basic Steel", "Basic Robe"}
+var armorLastNames_1 = []string{"kinda broken", "with some holes", "that shows skin", "for weaklings"}
+var armorFirstNames_2 = []string{"Good Mail", "Good Leather", "Good Steel", "Good Robe"}
+var armorLastNames_2 = []string{"that could be better", "that does the job", "that kinda works", "good enough"}
+var armorFirstNames_3 = []string{"Fantastic Mail", "Special Leather", "Fuckin Great Steel", "Nice Robe"}
+var armorLastNames_3 = []string{"top na balada", "that is a fucking wall", ", unbreakable", "that nothing gets through"}
 
 func getLevelBasedOnPlayer(level int) int {
 	return utils.GetRandomNumberInRange(level-LEVEL_DIFFERENCE, level+LEVEL_DIFFERENCE)
@@ -87,13 +88,48 @@ func getRandomNameByLevel(level int) string {
 
 func getWeaponByLevel(level int) item.Weapon {
 	weapon := &item.WeaponImpl{}
+
+	weapon.Item = makeWeaponItem(level)
+	weapon.DamageType = getWeaponDamageType()
+	weapon.Damage, weapon.AttackSpeed = getWeaponDamageAndAttackSpeed(level)
+
+	return weapon
+}
+
+func makeWeaponItem(level int) item.Item {
 	weaponItem := &item.ItemImpl{}
 
 	weaponItem.Name = nameWeapon(level)
 	weaponItem.Level = level
-	// weaponItem.Type =
+	weaponItem.StrReq = 0
+	weaponItem.DexReq = 0
+	weaponItem.IntReq = 0
+	weaponItem.Type = item.WEAPON
 
-	return weapon
+	return weaponItem
+}
+
+func getWeaponDamageType() item.DamageType {
+	number := utils.GetRandomNumberInRange(0, 1)
+
+	if number != 0 {
+		return item.MAGICAL
+	} else {
+		return item.NORMAL
+	}
+}
+
+func getWeaponDamageAndAttackSpeed(level int) (int, float32) {
+	damage := utils.GetRandomNumberInRange(level-LEVEL_DIFFERENCE_WEAPON, level+LEVEL_DIFFERENCE_WEAPON)
+	var attackSpeed float32
+
+	if damage > level {
+		attackSpeed = utils.GetRandomFloatInRange(0.5, 1.5)
+	} else {
+		attackSpeed = utils.GetRandomFloatInRange(1.5, 3)
+	}
+
+	return damage, attackSpeed
 }
 
 func nameWeapon(level int) string {
