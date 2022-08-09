@@ -1,8 +1,8 @@
 package main
 
 import (
-	"autorpg/character"
-	"autorpg/enemy"
+	"autorpg/person/character"
+	"autorpg/person/enemy"
 	"autorpg/utils"
 	"fmt"
 )
