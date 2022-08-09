@@ -3,6 +3,7 @@ package utils
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"math/rand"
 	"os"
 	"os/exec"
@@ -71,5 +72,5 @@ func GetRandomFloatInRange(min, max float32) float32 {
 		max = 0
 	}
 
-	return rand.Float32() + max - min
+	return float32(math.Round(float64(rand.Float32()+max-min)*100) / 100)
 }

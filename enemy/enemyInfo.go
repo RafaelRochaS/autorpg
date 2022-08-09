@@ -58,30 +58,39 @@ func getRandomNameByLevel(level int) string {
 
 	if level <= 10 {
 		name = firstNames_1[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += lastNames_1[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 20 {
 		name = firstNames_1[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += lastNames_2[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 30 {
 		name = firstNames_1[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += lastNames_3[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 40 {
 		name = firstNames_2[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += lastNames_1[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 50 {
 		name = firstNames_2[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += lastNames_2[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 60 {
 		name = firstNames_2[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += lastNames_3[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 70 {
 		name = firstNames_3[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += lastNames_1[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 80 {
 		name = firstNames_3[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += lastNames_2[utils.GetRandomNumberInRange(0, 3)]
 	} else {
 		name = firstNames_3[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += lastNames_3[utils.GetRandomNumberInRange(0, 3)]
 	}
 
@@ -116,30 +125,39 @@ func nameWeapon(level int) string {
 
 	if level <= 10 {
 		name = weaponFirstNames_1[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += weaponLastNames_1[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 20 {
 		name = weaponFirstNames_1[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += weaponLastNames_2[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 30 {
 		name = weaponFirstNames_1[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += weaponLastNames_3[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 40 {
 		name = weaponFirstNames_2[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += weaponLastNames_1[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 50 {
 		name = weaponFirstNames_2[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += weaponLastNames_2[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 60 {
 		name = weaponFirstNames_2[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += weaponLastNames_3[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 70 {
 		name = weaponFirstNames_3[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += weaponLastNames_1[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 80 {
 		name = weaponFirstNames_3[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += weaponLastNames_2[utils.GetRandomNumberInRange(0, 3)]
 	} else {
 		name = weaponFirstNames_3[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += weaponLastNames_3[utils.GetRandomNumberInRange(0, 3)]
 	}
 
@@ -197,30 +215,39 @@ func nameArmor(level int) string {
 
 	if level <= 10 {
 		name = armorFirstNames_1[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += armorLastNames_1[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 20 {
 		name = armorFirstNames_1[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += armorLastNames_2[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 30 {
 		name = armorFirstNames_1[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += armorLastNames_3[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 40 {
 		name = armorFirstNames_2[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += armorLastNames_1[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 50 {
 		name = armorFirstNames_2[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += armorLastNames_2[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 60 {
 		name = armorFirstNames_2[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += armorLastNames_3[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 70 {
 		name = armorFirstNames_3[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += armorLastNames_1[utils.GetRandomNumberInRange(0, 3)]
 	} else if level <= 80 {
 		name = armorFirstNames_3[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += armorLastNames_2[utils.GetRandomNumberInRange(0, 3)]
 	} else {
 		name = armorFirstNames_3[utils.GetRandomNumberInRange(0, 3)]
+		name += " "
 		name += armorLastNames_3[utils.GetRandomNumberInRange(0, 3)]
 	}
 
