@@ -1,6 +1,9 @@
 package character
 
-import "autorpg/item"
+import (
+	"autorpg/item"
+	"autorpg/person"
+)
 
 type Character interface {
 	Create()
@@ -13,4 +16,5 @@ type Character interface {
 	CheckLevelItem(item.Item) bool
 	CheckStatRequirementsItem(item.Item) bool
 	LevelUp()
+	GetPerson() person.Person
 }

@@ -2,7 +2,9 @@ package main
 
 import (
 	"autorpg/character"
+	"autorpg/enemy"
 	"autorpg/utils"
+	"fmt"
 )
 
 func main() {
@@ -15,4 +17,7 @@ func main() {
 
 	character := character.NewCharacter()
 	character.Create()
+
+	enemy := enemy.NewEnemy(character.GetPerson().Level)
+	fmt.Print(enemy)
 }

@@ -344,3 +344,7 @@ func (c *CharacterImpl) LevelUp() {
 		c.CurrentXp = 0
 	}
 }
+
+func (c CharacterImpl) GetPerson() person.Person {
+	return c.Person
+}
