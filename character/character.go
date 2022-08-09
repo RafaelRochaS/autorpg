@@ -6,6 +6,7 @@ import (
 	stringsRPG "autorpg/strings"
 	"autorpg/utils"
 	"fmt"
+	"math"
 )
 
 type CharacterImpl struct {
@@ -333,4 +334,13 @@ func (c CharacterImpl) CheckStatRequirementsItem(i item.Item) bool {
 	return c.Stats.Str >= i.GetStrReq() &&
 		c.Stats.Dex >= i.GetDexReq() &&
 		c.Stats.Int >= i.GetIntReq()
+}
+
+func (c *CharacterImpl) LevelUp() {
+	xpNeeded := int(math.Pow(float64(c.Person.Level*5), 2) + 65)
+
+	if c.CurrentXp >= xpNeeded {
+		c.Person.Level++
+		c.CurrentXp = 0
+	}
 }

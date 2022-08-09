@@ -12,6 +12,7 @@ type Item interface {
 type Armor interface {
 	Item
 	GetDefense() int
+	GetWeight() int
 }
 
 type Weapon interface {
