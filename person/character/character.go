@@ -340,6 +340,7 @@ func (c *CharacterImpl) LevelUp() {
 	xpNeeded := int(math.Pow(float64(c.Person.Level*5), 2) + 65)
 
 	if c.CurrentXp >= xpNeeded {
+		fmt.Printf("\nCharacter leveled up!\nLevel: %d\n", c.Person.Level)
 		c.Person.Level++
 		c.CurrentXp = 0
 	}
@@ -347,4 +348,16 @@ func (c *CharacterImpl) LevelUp() {
 
 func (c CharacterImpl) GetPerson() person.Person {
 	return c.Person
+}
+
+func (c CharacterImpl) GetArmor() item.Armor {
+	return c.Person.Armor
+}
+
+func (c CharacterImpl) GetWeapon() item.Weapon {
+	return c.Person.Weapon
+}
+
+func (c *CharacterImpl) IncreaseXP(xp int) {
+	c.CurrentXp += xp
 }

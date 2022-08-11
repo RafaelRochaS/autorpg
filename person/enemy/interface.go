@@ -1,6 +1,9 @@
 package enemy
 
-import "autorpg/item"
+import (
+	"autorpg/item"
+	"autorpg/person"
+)
 
 type Enemy interface {
 	GetName() string
@@ -11,4 +14,6 @@ type Enemy interface {
 	GetHP() int
 	GetDrop() item.Item
 	String() string
+	GetPerson() person.Person
+	TakeDamage(int)
 }

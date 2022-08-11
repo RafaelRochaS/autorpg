@@ -17,4 +17,7 @@ type Character interface {
 	CheckStatRequirementsItem(item.Item) bool
 	LevelUp()
 	GetPerson() person.Person
+	GetArmor() item.Armor
+	GetWeapon() item.Weapon
+	IncreaseXP(int)
 }

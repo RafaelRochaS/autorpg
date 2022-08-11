@@ -3,6 +3,7 @@ package enemy
 import (
 	"autorpg/item"
 	"autorpg/person"
+	stringsRPG "autorpg/strings"
 	"autorpg/utils"
 	"fmt"
 )
@@ -97,7 +98,7 @@ func dropArmor(level int) item.Armor {
 }
 
 func (e EnemyImpl) String() string {
-	fmt.Print("\n\n----------------------------------------------\n")
+	fmt.Print(stringsRPG.Separator)
 	str := "Current Enemy:\n"
 	str += "-------------------------------------------------\n"
 	str += fmt.Sprintf("Name: %s\n", e.GetName())
@@ -118,4 +119,12 @@ func (e EnemyImpl) String() string {
 	str += "-------------------------------------------------\n"
 
 	return str
+}
+
+func (e EnemyImpl) GetPerson() person.Person {
+	return e.Person
+}
+
+func (e *EnemyImpl) TakeDamage(dmg int) {
+	e.HP -= dmg
 }
