@@ -110,7 +110,8 @@ Attack Speed: %.2f`, c.Person.Weapon.GetName(), c.Person.Weapon.GetLevel(), c.Pe
 Armor:
 %v
 Level: %d
-Defense: %d`, c.Person.Armor.GetName(), c.Person.Armor.GetLevel(), c.Person.Armor.GetDefense())
+Defense: %d
+`, c.Person.Armor.GetName(), c.Person.Armor.GetLevel(), c.Person.Armor.GetDefense())
 }
 
 /*** Character Functions **/
@@ -259,6 +260,8 @@ func (c *CharacterImpl) SetStats() {
 		c.Stats.Luck_UP = BAR_LUCK_UP
 	}
 
+	c.Person.Level = 1
+
 	printCurrentStats(*c)
 }
 
@@ -336,13 +339,16 @@ func (c CharacterImpl) CheckStatRequirementsItem(i item.Item) bool {
 		c.Stats.Int >= i.GetIntReq()
 }
 
+// TODO: Need to also increase stats
 func (c *CharacterImpl) LevelUp() {
 	xpNeeded := int(math.Pow(float64(c.Person.Level*5), 2) + 65)
 
 	if c.CurrentXp >= xpNeeded {
-		fmt.Printf("\nCharacter leveled up!\nLevel: %d\n", c.Person.Level)
 		c.Person.Level++
 		c.CurrentXp = 0
+		fmt.Printf("\nCharacter leveled up!\nLevel: %d\n", c.Person.Level)
+	} else {
+		fmt.Printf("Current XP: %d\nTo Level Up: %d\n", c.CurrentXp, xpNeeded)
 	}
 }
 
