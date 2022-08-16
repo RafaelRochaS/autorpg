@@ -367,3 +367,11 @@ func (c CharacterImpl) GetWeapon() item.Weapon {
 func (c *CharacterImpl) IncreaseXP(xp int) {
 	c.CurrentXp += xp
 }
+
+func (c *CharacterImpl) TakeDamage(dmg int) {
+	c.Stats.HP -= dmg
+}
+
+func (c CharacterImpl) GetHP() int {
+	return c.Stats.HP
+}

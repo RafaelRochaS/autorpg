@@ -20,4 +20,6 @@ type Character interface {
 	GetArmor() item.Armor
 	GetWeapon() item.Weapon
 	IncreaseXP(int)
+	TakeDamage(int)
+	GetHP() int
 }

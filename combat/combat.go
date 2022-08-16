@@ -6,6 +6,7 @@ import (
 	stringsRPG "autorpg/strings"
 	"autorpg/utils"
 	"fmt"
+	"os"
 )
 
 type CombatImpl struct {
@@ -25,6 +26,14 @@ func (c *CombatImpl) InitiateCombat(player character.Character, enemy enemy.Enem
 	c.playerDPS = getBaseDPS(c.player.GetPerson()) - float32(c.enemy.GetArmor().GetDefense())
 	c.enemyDPS = getBaseDPS(c.enemy.GetPerson()) - float32(c.player.GetArmor().GetDefense())
 
+	if c.playerDPS <= 0 {
+		c.playerDPS = 1
+	}
+
+	if c.enemyDPS <= 0 {
+		c.enemyDPS = 1
+	}
+
 	c.executeCombat()
 }
 
@@ -37,15 +46,29 @@ func (c *CombatImpl) executeCombat() {
 		fmt.Printf("Player DPS: %f\tEnemy DPS: %f\n", c.playerDPS, c.enemyDPS)
 	}
 
-	for c.enemy.GetHP() > 0 {
+	for c.enemy.GetHP() > 0 && c.player.GetHP() > 0 {
 		c.enemy.TakeDamage(int(c.playerDPS))
 		if utils.DEBUG == "True" {
 			fmt.Print("[***DEBUG] ")
 			fmt.Printf("%s took %d points of damage. Remaining HP: %d\n", c.enemy.GetName(), int(c.playerDPS), c.enemy.GetHP())
 		}
+
+		utils.AwaitInput()
+
+		c.player.TakeDamage(int(c.enemyDPS))
+		if utils.DEBUG == "True" {
+			fmt.Print("[***DEBUG] ")
+			fmt.Printf("%s took %d points of damage. Remaining HP: %d\n", c.player.GetPerson().Name, int(c.enemyDPS), c.player.GetHP())
+		}
+
+		utils.AwaitInput()
 	}
 
-	c.handleCombatVictory()
+	if c.enemy.GetHP() <= 0 {
+		c.handleCombatVictory()
+	} else {
+		c.handleCombatDefeat()
+	}
 }
 
 func (c CombatImpl) printStartCombat() {
@@ -61,4 +84,11 @@ func (c *CombatImpl) handleCombatVictory() {
 
 	c.player.IncreaseXP(c.enemy.GetXpGiven())
 	c.player.LevelUp()
+}
+
+func (c CombatImpl) handleCombatDefeat() {
+	fmt.Print(stringsRPG.Separator)
+	fmt.Printf("Tough luck! %s defeated you!\n\n", c.enemy.GetName())
+	fmt.Print("That's that, better luck next time!\n")
+	os.Exit(0)
 }
