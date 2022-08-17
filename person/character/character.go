@@ -375,3 +375,43 @@ func (c *CharacterImpl) TakeDamage(dmg int) {
 func (c CharacterImpl) GetHP() int {
 	return c.Stats.HP
 }
+
+func (c *CharacterImpl) HandleArmorDrop(drop item.Armor) {
+	if c.canItemBeUsed(drop) {
+
+		if (drop.GetDefense() > c.GetArmor().GetDefense()) &&
+			(drop.GetWeight() < c.GetArmor().GetDefense()) {
+			c.Person.SetArmor(drop)
+			return
+		}
+
+		if (float32(drop.GetDefense()) > (float32(c.GetArmor().GetDefense()) * 1.33)) &&
+			(drop.GetWeight() > c.GetArmor().GetWeight()) {
+			c.Person.SetArmor(drop)
+			return
+		}
+	}
+}
+
+func (c *CharacterImpl) HandleWeaponDrop(drop item.Weapon) {
+	if c.canItemBeUsed(drop) {
+
+		if (drop.GetDamage() > c.Person.Weapon.GetDamage()) &&
+			(drop.GetAttackSpeed() > c.Person.Weapon.GetAttackSpeed()) {
+			c.Person.SetWeapon(drop)
+			return
+		}
+
+		if (float32(drop.GetDamage()) > (float32(c.Person.Weapon.GetDamage()) * 1.33)) &&
+			(drop.GetAttackSpeed() < c.Person.Weapon.GetAttackSpeed()) {
+			c.Person.SetWeapon(drop)
+			return
+		}
+	}
+}
+
+func (c CharacterImpl) canItemBeUsed(item item.Item) bool {
+	return (item.GetStrReq() > c.Stats.Str) ||
+		(item.GetIntReq() > c.Stats.Int) ||
+		(item.GetDexReq() > c.Stats.Int)
+}

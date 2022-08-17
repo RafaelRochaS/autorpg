@@ -37,6 +37,7 @@ func (c *CombatImpl) InitiateCombat(player character.Character, enemy enemy.Enem
 	c.executeCombat()
 }
 
+// TODO: Implement magic weapon mechanic
 func (c *CombatImpl) executeCombat() {
 	c.printStartCombat()
 
@@ -79,11 +80,22 @@ func (c CombatImpl) printStartCombat() {
 }
 
 func (c *CombatImpl) handleCombatVictory() {
-	drop := c.enemy.GetDrop()
-	fmt.Printf("\n%s defeated! Got drop: %s\n", c.enemy.GetName(), drop.GetName())
-
+	c.handleDrop()
 	c.player.IncreaseXP(c.enemy.GetXpGiven())
 	c.player.LevelUp()
+}
+
+func (c CombatImpl) handleDrop() {
+	num := utils.GetRandomNumberInRange(0, 1)
+	if num != 0 {
+		drop := c.enemy.GetDropWeapon()
+		c.player.HandleWeaponDrop(drop)
+		fmt.Printf("\n%s defeated! Got drop: %s\n", c.enemy.GetName(), drop.GetName())
+	} else {
+		drop := c.enemy.GetDropArmor()
+		c.player.HandleArmorDrop(drop)
+		fmt.Printf("\n%s defeated! Got drop: %s\n", c.enemy.GetName(), drop.GetName())
+	}
 }
 
 func (c CombatImpl) handleCombatDefeat() {

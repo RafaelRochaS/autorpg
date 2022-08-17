@@ -22,4 +22,6 @@ type Character interface {
 	IncreaseXP(int)
 	TakeDamage(int)
 	GetHP() int
+	HandleWeaponDrop(item.Weapon)
+	HandleArmorDrop(item.Armor)
 }

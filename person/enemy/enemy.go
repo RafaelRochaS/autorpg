@@ -4,7 +4,6 @@ import (
 	"autorpg/item"
 	"autorpg/person"
 	stringsRPG "autorpg/strings"
-	"autorpg/utils"
 	"fmt"
 )
 
@@ -57,20 +56,20 @@ func (e EnemyImpl) GetHP() int {
 	return e.HP
 }
 
-func (e EnemyImpl) GetDrop() item.Item {
-	num := utils.GetRandomNumberInRange(0, 1)
-	if num != 0 {
-		return dropWeapon(e.PlayerLevel)
-	} else {
-		return dropArmor(e.PlayerLevel)
-	}
-}
+// func (e EnemyImpl) () item.Item {
+// 	num := utils.GetRandomNumberInRange(0, 1)
+// 	if num != 0 {
+// 		return dropWeapon(e.PlayerLevel)
+// 	} else {
+// 		return dropArmor(e.PlayerLevel)
+// 	}
+// }
 
-func dropWeapon(level int) item.Weapon {
+func (e EnemyImpl) GetDropWeapon() item.Weapon {
 	return &item.WeaponImpl{
 		Item: &item.ItemImpl{
 			Name:   "Default Testing Weapon",
-			Level:  level,
+			Level:  e.PlayerLevel,
 			Type:   item.WEAPON,
 			StrReq: 1,
 			IntReq: 1,
@@ -82,11 +81,11 @@ func dropWeapon(level int) item.Weapon {
 	}
 }
 
-func dropArmor(level int) item.Armor {
+func (e EnemyImpl) GetDropArmor() item.Armor {
 	return &item.ArmorImpl{
 		Item: &item.ItemImpl{
 			Name:   "Default Testing Armor",
-			Level:  level,
+			Level:  e.PlayerLevel,
 			Type:   item.ARMOR,
 			StrReq: 1,
 			IntReq: 1,
