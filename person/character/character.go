@@ -347,8 +347,35 @@ func (c *CharacterImpl) LevelUp() {
 		c.Person.Level++
 		c.CurrentXp = 0
 		fmt.Printf("\nCharacter leveled up!\nLevel: %d\n", c.Person.Level)
+		c.increaseStatsByLevelUp()
+		printCurrentStats(*c)
 	} else {
 		fmt.Printf("Current XP: %d\nTo Level Up: %d\n", c.CurrentXp, xpNeeded)
+	}
+}
+
+func (c *CharacterImpl) increaseStatsByLevelUp() {
+	switch c.Class {
+	case WARRIOR:
+		c.Stats.Str += WAR_STR_UP
+		c.Stats.Dex += WAR_DEX_UP
+		c.Stats.Int += WAR_INT_UP
+		c.Stats.Luck += WAR_LUCK_UP
+	case ROGUE:
+		c.Stats.Str += ROG_STR_UP
+		c.Stats.Dex += ROG_DEX_UP
+		c.Stats.Int += ROG_INT_UP
+		c.Stats.Luck += ROG_LUCK_UP
+	case WIZARD:
+		c.Stats.Str += WIZ_STR_UP
+		c.Stats.Dex += WIZ_DEX_UP
+		c.Stats.Int += WIZ_INT_UP
+		c.Stats.Luck += WIZ_LUCK_UP
+	case BARBARIAN:
+		c.Stats.Str += BAR_STR_UP
+		c.Stats.Dex += BAR_DEX_UP
+		c.Stats.Int += BAR_INT_UP
+		c.Stats.Luck += BAR_LUCK_UP
 	}
 }
 
