@@ -23,5 +23,5 @@ Weight: %d
 Str Req: %d
 Dex Req: %d
 Int Req: %d
-,`, a.GetName(), a.GetDefense(), a.GetWeight(), a.GetStrReq(), a.GetDexReq(), a.GetIntReq())
+`, a.GetName(), a.GetDefense(), a.GetWeight(), a.GetStrReq(), a.GetDexReq(), a.GetIntReq())
 }

@@ -21,8 +21,7 @@ func main() {
 	character := character.NewCharacter()
 	character.Create()
 
-	for i := 0; i < 25; i++ {
-		utils.AwaitInput()
+	for {
 		fmt.Print("Generating enemy...\n")
 		enemy := enemy.NewEnemy(character.GetPerson().Level)
 		fmt.Print(enemy)

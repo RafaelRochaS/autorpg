@@ -7,6 +7,7 @@ import (
 	"autorpg/utils"
 	"fmt"
 	"os"
+	"time"
 )
 
 type CombatImpl struct {
@@ -48,20 +49,12 @@ func (c *CombatImpl) executeCombat() {
 
 	for c.enemy.GetHP() > 0 && c.player.GetHP() > 0 {
 		c.enemy.TakeDamage(int(c.playerDPS))
-		if utils.DEBUG == "True" {
-			fmt.Print("[***DEBUG] ")
-			fmt.Printf("%s took %d points of damage. Remaining HP: %d\n", c.enemy.GetName(), int(c.playerDPS), c.enemy.GetHP())
-		}
-
-		utils.AwaitInput()
+		fmt.Printf("%s took %d points of damage. Remaining HP: %d\n", c.enemy.GetName(), int(c.playerDPS), c.enemy.GetHP())
 
 		c.player.TakeDamage(int(c.enemyDPS))
-		if utils.DEBUG == "True" {
-			fmt.Print("[***DEBUG] ")
-			fmt.Printf("%s took %d points of damage. Remaining HP: %d\n", c.player.GetPerson().Name, int(c.enemyDPS), c.player.GetHP())
-		}
+		fmt.Printf("%s took %d points of damage. Remaining HP: %d\n", c.player.GetPerson().Name, int(c.enemyDPS), c.player.GetHP())
 
-		utils.AwaitInput()
+		time.Sleep(10000)
 	}
 
 	if c.enemy.GetHP() <= 0 {

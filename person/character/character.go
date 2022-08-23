@@ -64,6 +64,7 @@ func printCurrentStats(c CharacterImpl) {
 	fmt.Println("Current Stats:")
 	fmt.Printf(`
 HP: %d
+Level: %d
 Strength: %d (+%d)
 Const: %d (+%d)
 Dexterity: %d (+%d)
@@ -71,6 +72,7 @@ Intelligence: %d (+%d)
 Luck: %d (+%d)
 `,
 		c.Stats.HP,
+		c.Person.Level,
 		c.Stats.Str,
 		c.Stats.Str_UP,
 		c.Stats.Const,
