@@ -1,5 +1,7 @@
 package item
 
+import "fmt"
+
 type WeaponImpl struct {
 	Item
 	DamageType  DamageType
@@ -17,4 +19,11 @@ func (w WeaponImpl) GetDamageType() DamageType {
 
 func (w WeaponImpl) GetAttackSpeed() float32 {
 	return w.AttackSpeed
+}
+
+func (w WeaponImpl) String() string {
+	return fmt.Sprintf(`%s
+Damage Type: %v
+Damage: %d,
+Attack Speed: %f`, w.GetName(), w.DamageType, w.Damage, w.AttackSpeed)
 }

@@ -15,7 +15,7 @@ const MAX_STARTING_STATS = 45
 
 /*** WARRIOR Defaults **/
 const (
-	WAR_HP       = 20
+	WAR_HP       = 30
 	WAR_STR      = 9
 	WAR_STR_UP   = 3
 	WAR_CONST    = 10
@@ -60,7 +60,7 @@ func GetWarriorDefaults() (item.Weapon, item.Armor) {
 
 /*** ROGUE Defaults **/
 const (
-	ROG_HP       = 16
+	ROG_HP       = 26
 	ROG_STR      = 4
 	ROG_STR_UP   = 1
 	ROG_CONST    = 8
@@ -105,7 +105,7 @@ func GetRogueDefaults() (item.Weapon, item.Armor) {
 
 /*** WIZARD Defaults **/
 const (
-	WIZ_HP       = 13
+	WIZ_HP       = 23
 	WIZ_STR      = 3
 	WIZ_STR_UP   = 0
 	WIZ_CONST    = 5
@@ -150,7 +150,7 @@ func GetWizardDefaults() (item.Weapon, item.Armor) {
 
 /*** BARBARIAN Defaults **/
 const (
-	BAR_HP       = 24
+	BAR_HP       = 34
 	BAR_STR      = 13
 	BAR_STR_UP   = 4
 	BAR_CONST    = 13

@@ -10,10 +10,11 @@ import (
 )
 
 type CharacterImpl struct {
-	Person    person.Person
-	Stats     Stats
-	CurrentXp int
-	Class     Class
+	Person      person.Person
+	Stats       Stats
+	CurrentXp   int
+	Class       Class
+	damageTaken int
 }
 
 type Stats struct {
@@ -111,7 +112,8 @@ Armor:
 %v
 Level: %d
 Defense: %d
-`, c.Person.Armor.GetName(), c.Person.Armor.GetLevel(), c.Person.Armor.GetDefense())
+Weight: %d
+`, c.Person.Armor.GetName(), c.Person.Armor.GetLevel(), c.Person.Armor.GetDefense(), c.Person.Armor.GetWeight())
 }
 
 /*** Character Functions **/
@@ -164,7 +166,7 @@ func (c *CharacterImpl) Create() {
 		}
 	} else {
 		fmt.Println("\n***[DEBUG] mode enabled, choosing default char class...")
-		c.SetClass(WIZARD)
+		c.SetClass(BARBARIAN)
 	}
 
 	fmt.Printf("\nSelected class: %v\n", c.Class)
@@ -304,10 +306,10 @@ func (c *CharacterImpl) AddPoints() {
 		}
 	} else {
 		fmt.Println("\n***[DEBUG] mode enabled, choosing default stat points...")
-		c.Stats.Str += 0
+		c.Stats.Str += 5
 		c.Stats.Const += 3
 		c.Stats.Dex += 1
-		c.Stats.Int += 5
+		c.Stats.Int += 0
 		c.Stats.Luck += 1
 	}
 }
@@ -396,6 +398,7 @@ func (c *CharacterImpl) IncreaseXP(xp int) {
 }
 
 func (c *CharacterImpl) TakeDamage(dmg int) {
+	c.damageTaken += dmg
 	c.Stats.HP -= dmg
 }
 
@@ -407,7 +410,7 @@ func (c *CharacterImpl) HandleArmorDrop(drop item.Armor) {
 	if c.canItemBeUsed(drop) {
 
 		if (drop.GetDefense() > c.GetArmor().GetDefense()) &&
-			(drop.GetWeight() < c.GetArmor().GetDefense()) {
+			(drop.GetWeight() <= c.GetArmor().GetDefense()) {
 			c.Person.SetArmor(drop)
 			return
 		}
@@ -422,9 +425,13 @@ func (c *CharacterImpl) HandleArmorDrop(drop item.Armor) {
 
 func (c *CharacterImpl) HandleWeaponDrop(drop item.Weapon) {
 	if c.canItemBeUsed(drop) {
+		if utils.DEBUG == "True" {
+			fmt.Print("[***DEBUG] ")
+			fmt.Printf("HandleWeaponDrop: item can be used")
+		}
 
 		if (drop.GetDamage() > c.Person.Weapon.GetDamage()) &&
-			(drop.GetAttackSpeed() > c.Person.Weapon.GetAttackSpeed()) {
+			(drop.GetAttackSpeed() >= c.Person.Weapon.GetAttackSpeed()) {
 			c.Person.SetWeapon(drop)
 			return
 		}
@@ -435,10 +442,20 @@ func (c *CharacterImpl) HandleWeaponDrop(drop item.Weapon) {
 			return
 		}
 	}
+
+	if utils.DEBUG == "True" {
+		fmt.Print("[***DEBUG] ")
+		fmt.Printf("HandleWeaponDrop: item cannot be used")
+	}
 }
 
 func (c CharacterImpl) canItemBeUsed(item item.Item) bool {
 	return (item.GetStrReq() > c.Stats.Str) ||
 		(item.GetIntReq() > c.Stats.Int) ||
 		(item.GetDexReq() > c.Stats.Int)
+}
+
+func (c *CharacterImpl) ResetHP() {
+	c.Stats.HP += c.damageTaken
+	c.damageTaken = 0
 }

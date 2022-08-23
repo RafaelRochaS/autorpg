@@ -76,8 +76,8 @@ func (e EnemyImpl) GetDropWeapon() item.Weapon {
 			DexReq: 1,
 		},
 		DamageType:  item.NORMAL,
-		Damage:      10,
-		AttackSpeed: 0.5,
+		Damage:      25 + e.PlayerLevel,
+		AttackSpeed: 1,
 	}
 }
 
@@ -91,7 +91,7 @@ func (e EnemyImpl) GetDropArmor() item.Armor {
 			IntReq: 1,
 			DexReq: 1,
 		},
-		Defense: 3,
+		Defense: 20 + e.PlayerLevel,
 		Weight:  3,
 	}
 }

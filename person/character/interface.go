@@ -24,4 +24,5 @@ type Character interface {
 	GetHP() int
 	HandleWeaponDrop(item.Weapon)
 	HandleArmorDrop(item.Armor)
+	ResetHP()
 }

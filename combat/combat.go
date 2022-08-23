@@ -43,7 +43,6 @@ func (c *CombatImpl) executeCombat() {
 
 	if utils.DEBUG == "True" {
 		fmt.Print("[***DEBUG] ")
-		fmt.Print("Starting with player attacking only, until enemy dies\n")
 		fmt.Printf("Player DPS: %f\tEnemy DPS: %f\n", c.playerDPS, c.enemyDPS)
 	}
 
@@ -90,11 +89,11 @@ func (c CombatImpl) handleDrop() {
 	if num != 0 {
 		drop := c.enemy.GetDropWeapon()
 		c.player.HandleWeaponDrop(drop)
-		fmt.Printf("\n%s defeated! Got drop: %s\n", c.enemy.GetName(), drop.GetName())
+		fmt.Printf("\n%s defeated! Got drop: %s\n", c.enemy.GetName(), drop)
 	} else {
 		drop := c.enemy.GetDropArmor()
 		c.player.HandleArmorDrop(drop)
-		fmt.Printf("\n%s defeated! Got drop: %s\n", c.enemy.GetName(), drop.GetName())
+		fmt.Printf("\n%s defeated! Got drop: %s\n", c.enemy.GetName(), drop)
 	}
 }
 
