@@ -82,18 +82,19 @@ func (c *CombatImpl) handleCombatVictory() {
 	c.handleDrop()
 	c.player.IncreaseXP(c.enemy.GetXpGiven())
 	c.player.LevelUp()
+	c.player.ResetHP()
 }
 
 func (c CombatImpl) handleDrop() {
 	num := utils.GetRandomNumberInRange(0, 1)
 	if num != 0 {
 		drop := c.enemy.GetDropWeapon()
-		c.player.HandleWeaponDrop(drop)
 		fmt.Printf("\n%s defeated! Got drop: %s\n", c.enemy.GetName(), drop)
+		c.player.HandleWeaponDrop(drop)
 	} else {
 		drop := c.enemy.GetDropArmor()
-		c.player.HandleArmorDrop(drop)
 		fmt.Printf("\n%s defeated! Got drop: %s\n", c.enemy.GetName(), drop)
+		c.player.HandleArmorDrop(drop)
 	}
 }
 

@@ -25,5 +25,9 @@ func (w WeaponImpl) String() string {
 	return fmt.Sprintf(`%s
 Damage Type: %v
 Damage: %d,
-Attack Speed: %f`, w.GetName(), w.DamageType, w.Damage, w.AttackSpeed)
+Attack Speed: %f
+Str Req: %d
+Dex Req: %d
+Int Req: %d
+`, w.GetName(), w.DamageType, w.Damage, w.AttackSpeed, w.GetStrReq(), w.GetDexReq(), w.GetIntReq())
 }
