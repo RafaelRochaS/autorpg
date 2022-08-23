@@ -54,7 +54,7 @@ func (c *CombatImpl) executeCombat() {
 		c.player.TakeDamage(int(c.enemyDPS))
 		fmt.Printf("%s took %d points of damage. Remaining HP: %d\n", c.player.GetPerson().Name, int(c.enemyDPS), c.player.GetHP())
 
-		time.Sleep(10000)
+		time.Sleep(10 * time.Second)
 	}
 
 	if c.enemy.GetHP() <= 0 {

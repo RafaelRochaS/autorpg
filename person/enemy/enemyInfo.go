@@ -5,9 +5,9 @@ import (
 	"autorpg/utils"
 )
 
-const LEVEL_DIFFERENCE = 2
+const LEVEL_DIFFERENCE = 3
 const LEVEL_DIFFERENCE_WEAPON = 10
-const LEVEL_DIFFERENCE_ARMOR_DEFENSE = 5
+const LEVEL_DIFFERENCE_ARMOR_DEFENSE = 15
 const LEVEL_DIFFERENCE_ARMOR_WEIGHT = 10
 
 /* Naming Scheme:
@@ -50,7 +50,7 @@ func getXpGiven(level, playerLevel int) int {
 }
 
 func getHP(level int) int {
-	return 2*level + 6 + utils.GetRandomNumberInRange(level, 3*level)
+	return 3*level + 15 + utils.GetRandomNumberInRange(level, 3*level)
 }
 
 func getRandomNameByLevel(level int) string {

@@ -344,7 +344,6 @@ func (c CharacterImpl) CheckStatRequirementsItem(i item.Item) bool {
 		c.Stats.Int >= i.GetIntReq()
 }
 
-// TODO: Need to also increase stats
 func (c *CharacterImpl) LevelUp() {
 	xpNeeded := int(math.Pow(float64(c.Person.Level*5), 2) + 65)
 
@@ -365,21 +364,25 @@ func (c *CharacterImpl) increaseStatsByLevelUp() {
 		c.Stats.Str += WAR_STR_UP
 		c.Stats.Dex += WAR_DEX_UP
 		c.Stats.Int += WAR_INT_UP
+		c.Stats.Const += WAR_CONST_UP
 		c.Stats.Luck += WAR_LUCK_UP
 	case ROGUE:
 		c.Stats.Str += ROG_STR_UP
 		c.Stats.Dex += ROG_DEX_UP
 		c.Stats.Int += ROG_INT_UP
+		c.Stats.Const += ROG_CONST_UP
 		c.Stats.Luck += ROG_LUCK_UP
 	case WIZARD:
 		c.Stats.Str += WIZ_STR_UP
 		c.Stats.Dex += WIZ_DEX_UP
 		c.Stats.Int += WIZ_INT_UP
+		c.Stats.Const += WIZ_CONST_UP
 		c.Stats.Luck += WIZ_LUCK_UP
 	case BARBARIAN:
 		c.Stats.Str += BAR_STR_UP
 		c.Stats.Dex += BAR_DEX_UP
 		c.Stats.Int += BAR_INT_UP
+		c.Stats.Const += BAR_CONST_UP
 		c.Stats.Luck += BAR_LUCK_UP
 	}
 
