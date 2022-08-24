@@ -24,23 +24,13 @@ func NewCombat() Combat {
 func (c *CombatImpl) InitiateCombat(player character.Character, enemy enemy.Enemy) {
 	c.player = player
 	c.enemy = enemy
-	c.playerDPS = getBaseDPS(c.player.GetPerson()) - float32(c.enemy.GetArmor().GetDefense())
-	c.enemyDPS = getBaseDPS(c.enemy.GetPerson()) - float32(c.player.GetArmor().GetDefense())
 
-	if c.playerDPS <= 0 {
-		c.playerDPS = 1
-	}
-
-	if c.enemyDPS <= 0 {
-		c.enemyDPS = 1
-	}
-
+	calculateDps(c)
 	c.executeCombat()
 }
 
-// TODO: Implement magic weapon mechanic
 func (c *CombatImpl) executeCombat() {
-	c.printStartCombat()
+	printStartCombat(*c)
 
 	if utils.DEBUG == "True" {
 		fmt.Print("[***DEBUG] ")
@@ -54,7 +44,6 @@ func (c *CombatImpl) executeCombat() {
 		c.player.TakeDamage(int(c.enemyDPS))
 		fmt.Printf("%s took %d points of damage. Remaining HP: %d\n", c.player.GetPerson().Name, int(c.enemyDPS), c.player.GetHP())
 
-		time.Sleep(10 * time.Second)
 	}
 
 	if c.enemy.GetHP() <= 0 {
@@ -62,13 +51,7 @@ func (c *CombatImpl) executeCombat() {
 	} else {
 		c.handleCombatDefeat()
 	}
-}
-
-func (c CombatImpl) printStartCombat() {
-	fmt.Print(stringsRPG.Separator)
-	fmt.Printf("Initiating combat...\n")
-	fmt.Printf("%s vs. %s!!\n", c.player.GetPerson().Name, c.enemy.GetName())
-	fmt.Print("Fight!\n")
+	time.Sleep(1 * time.Second)
 }
 
 func (c *CombatImpl) handleCombatVictory() {
