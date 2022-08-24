@@ -4,7 +4,9 @@ import (
 	"autorpg/item"
 	"autorpg/person"
 	stringsRPG "autorpg/strings"
+	"autorpg/utils"
 	"fmt"
+	"time"
 )
 
 func calculateDps(c *CombatImpl) {
@@ -37,4 +39,8 @@ func printStartCombat(c CombatImpl) {
 	fmt.Printf("Initiating combat...\n")
 	fmt.Printf("%s vs. %s!!\n", c.player.GetPerson().Name, c.enemy.GetName())
 	fmt.Print("Fight!\n")
+}
+
+func afterCombatPause() {
+	time.Sleep(time.Duration(utils.COMBAT_PAUSE_TIME) * time.Second)
 }

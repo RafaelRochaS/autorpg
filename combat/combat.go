@@ -7,7 +7,6 @@ import (
 	"autorpg/utils"
 	"fmt"
 	"os"
-	"time"
 )
 
 type CombatImpl struct {
@@ -54,8 +53,6 @@ func (c *CombatImpl) executeCombat() {
 			return
 		}
 	}
-
-	time.Sleep(1 * time.Second)
 }
 
 func (c *CombatImpl) handleCombatVictory() {
@@ -63,6 +60,7 @@ func (c *CombatImpl) handleCombatVictory() {
 	c.player.IncreaseXP(c.enemy.GetXpGiven())
 	c.player.LevelUp()
 	c.player.ResetHP()
+	afterCombatPause()
 }
 
 func (c CombatImpl) handleDrop() {
