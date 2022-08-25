@@ -12,8 +12,8 @@ type Enemy interface {
 	GetArmor() item.Armor
 	GetXpGiven() int
 	GetHP() int
-	GetDropWeapon() item.Weapon
-	GetDropArmor() item.Armor
+	GetDropWeapon(int) item.Weapon
+	GetDropArmor(int) item.Armor
 	String() string
 	GetPerson() person.Person
 	TakeDamage(int)

@@ -25,4 +25,5 @@ type Character interface {
 	HandleWeaponDrop(item.Weapon)
 	HandleArmorDrop(item.Armor)
 	ResetHP()
+	GetLuck() int
 }

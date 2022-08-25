@@ -53,6 +53,7 @@ func GetWarriorDefaults() (item.Weapon, item.Armor) {
 			IntReq: 1,
 		},
 		Defense: 4,
+		Weight:  2,
 	}
 
 	return warWeapon, warArmor
@@ -85,7 +86,7 @@ func GetRogueDefaults() (item.Weapon, item.Armor) {
 		},
 		DamageType:  item.NORMAL,
 		Damage:      3,
-		AttackSpeed: 0.4,
+		AttackSpeed: 2.8,
 	}
 
 	warArmor := item.ArmorImpl{
@@ -98,6 +99,7 @@ func GetRogueDefaults() (item.Weapon, item.Armor) {
 			IntReq: 1,
 		},
 		Defense: 2,
+		Weight:  1,
 	}
 
 	return warWeapon, warArmor
@@ -107,7 +109,7 @@ func GetRogueDefaults() (item.Weapon, item.Armor) {
 const (
 	WIZ_HP       = 23
 	WIZ_STR      = 3
-	WIZ_STR_UP   = 0
+	WIZ_STR_UP   = 1
 	WIZ_CONST    = 5
 	WIZ_CONST_UP = 2
 	WIZ_DEX      = 3
@@ -115,7 +117,7 @@ const (
 	WIZ_INT      = 15
 	WIZ_INT_UP   = 4
 	WIZ_LUCK     = 9
-	WIZ_LUCK_UP  = 3
+	WIZ_LUCK_UP  = 2
 )
 
 func GetWizardDefaults() (item.Weapon, item.Armor) {
@@ -129,7 +131,7 @@ func GetWizardDefaults() (item.Weapon, item.Armor) {
 			IntReq: 1,
 		},
 		DamageType:  item.MAGICAL,
-		Damage:      6,
+		Damage:      2,
 		AttackSpeed: 1.6,
 	}
 
@@ -143,6 +145,7 @@ func GetWizardDefaults() (item.Weapon, item.Armor) {
 			IntReq: 1,
 		},
 		Defense: 1,
+		Weight:  1,
 	}
 
 	return warWeapon, warArmor
@@ -154,11 +157,11 @@ const (
 	BAR_STR      = 13
 	BAR_STR_UP   = 4
 	BAR_CONST    = 13
-	BAR_CONST_UP = 4
+	BAR_CONST_UP = 3
 	BAR_DEX      = 2
 	BAR_DEX_UP   = 1
 	BAR_INT      = 2
-	BAR_INT_UP   = 0
+	BAR_INT_UP   = 1
 	BAR_LUCK     = 5
 	BAR_LUCK_UP  = 1
 )
@@ -175,7 +178,7 @@ func GetBarbarianDefaults() (item.Weapon, item.Armor) {
 		},
 		DamageType:  item.NORMAL,
 		Damage:      8,
-		AttackSpeed: 3.6,
+		AttackSpeed: 1,
 	}
 
 	warArmor := item.ArmorImpl{
@@ -188,6 +191,7 @@ func GetBarbarianDefaults() (item.Weapon, item.Armor) {
 			IntReq: 1,
 		},
 		Defense: 4,
+		Weight:  2,
 	}
 
 	return warWeapon, warArmor

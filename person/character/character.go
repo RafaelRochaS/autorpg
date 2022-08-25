@@ -116,6 +116,7 @@ Armor:
 Level: %d
 Defense: %d
 Weight: %d
+
 `, c.Person.Armor.GetName(), c.Person.Armor.GetLevel(), c.Person.Armor.GetDefense(), c.Person.Armor.GetWeight())
 }
 
@@ -197,7 +198,7 @@ func (c *CharacterImpl) Create() {
 			weapon, armor = GetBarbarianDefaults()
 		}
 	} else {
-		weapon, armor = GetWizardDefaults()
+		weapon, armor = GetBarbarianDefaults()
 	}
 
 	c.AttachWeapon(weapon)
@@ -321,8 +322,8 @@ func (c *CharacterImpl) AttachWeapon(w item.Weapon) {
 	c.Person.Weapon = w
 }
 
-func (c *CharacterImpl) AttachArmor(w item.Armor) {
-	c.Person.Armor = w
+func (c *CharacterImpl) AttachArmor(a item.Armor) {
+	c.Person.Armor = a
 }
 
 func (c *CharacterImpl) RemoveItem(t item.ItemType) {
@@ -430,9 +431,7 @@ func (c *CharacterImpl) HandleArmorDrop(drop item.Armor) {
 			(drop.GetWeight() > c.GetArmor().GetWeight()) {
 			c.Person.SetArmor(drop)
 		}
-	}
-
-	if utils.DEBUG == "True" {
+	} else if utils.DEBUG == "True" {
 		fmt.Print("[***DEBUG] ")
 		fmt.Printf("HandleArmorDrop: item cannot be used")
 	}
@@ -457,9 +456,7 @@ func (c *CharacterImpl) HandleWeaponDrop(drop item.Weapon) {
 			(drop.GetAttackSpeed() < c.Person.Weapon.GetAttackSpeed()) {
 			c.Person.SetWeapon(drop)
 		}
-	}
-
-	if utils.DEBUG == "True" {
+	} else if utils.DEBUG == "True" {
 		fmt.Print("[***DEBUG] ")
 		fmt.Printf("HandleWeaponDrop: item cannot be used\n")
 	}
@@ -477,4 +474,8 @@ func (c CharacterImpl) canItemBeUsed(item item.Item) bool {
 func (c *CharacterImpl) ResetHP() {
 	c.Stats.HP += c.damageTaken
 	c.damageTaken = 0
+}
+
+func (c CharacterImpl) GetLuck() int {
+	return c.Stats.Luck
 }

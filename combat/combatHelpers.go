@@ -42,5 +42,9 @@ func printStartCombat(c CombatImpl) {
 }
 
 func afterCombatPause() {
-	time.Sleep(time.Duration(utils.COMBAT_PAUSE_TIME) * time.Second)
+	if utils.DEBUG == "True" {
+		utils.AwaitInput()
+	} else {
+		time.Sleep(time.Duration(utils.COMBAT_PAUSE_TIME) * time.Second)
+	}
 }

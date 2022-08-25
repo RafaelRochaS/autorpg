@@ -28,8 +28,8 @@ func (e *EnemyImpl) instantiate() {
 	e.XpGiven = getXpGiven(e.Person.Level, e.PlayerLevel)
 	e.HP = getHP(e.Person.Level)
 	e.Person.Name = getRandomNameByLevel(e.Person.Level)
-	e.Person.Weapon = getWeaponByLevel(e.Person.Level)
-	e.Person.Armor = getArmorByLevel(e.Person.Level)
+	e.Person.Weapon = getWeaponByLevel(e.Person.Level, 0)
+	e.Person.Armor = getArmorByLevel(e.Person.Level, 0)
 }
 
 func (e EnemyImpl) GetName() string {
@@ -56,44 +56,12 @@ func (e EnemyImpl) GetHP() int {
 	return e.HP
 }
 
-// func (e EnemyImpl) () item.Item {
-// 	num := utils.GetRandomNumberInRange(0, 1)
-// 	if num != 0 {
-// 		return dropWeapon(e.PlayerLevel)
-// 	} else {
-// 		return dropArmor(e.PlayerLevel)
-// 	}
-// }
-
-func (e EnemyImpl) GetDropWeapon() item.Weapon {
-	return &item.WeaponImpl{
-		Item: &item.ItemImpl{
-			Name:   "Default Testing Weapon",
-			Level:  e.PlayerLevel,
-			Type:   item.WEAPON,
-			StrReq: 1,
-			IntReq: 1,
-			DexReq: 1,
-		},
-		DamageType:  item.NORMAL,
-		Damage:      25 + e.PlayerLevel,
-		AttackSpeed: 1,
-	}
+func (e EnemyImpl) GetDropWeapon(luck int) item.Weapon {
+	return getWeaponByLevel(e.PlayerLevel, luck)
 }
 
-func (e EnemyImpl) GetDropArmor() item.Armor {
-	return &item.ArmorImpl{
-		Item: &item.ItemImpl{
-			Name:   "Default Testing Armor",
-			Level:  e.PlayerLevel,
-			Type:   item.ARMOR,
-			StrReq: 1,
-			IntReq: 1,
-			DexReq: 1,
-		},
-		Defense: 20 + e.PlayerLevel,
-		Weight:  3,
-	}
+func (e EnemyImpl) GetDropArmor(luck int) item.Armor {
+	return getArmorByLevel(e.PlayerLevel, luck)
 }
 
 func (e EnemyImpl) String() string {

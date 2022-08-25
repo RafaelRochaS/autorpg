@@ -3,6 +3,7 @@ package enemy
 import (
 	"autorpg/item"
 	"autorpg/utils"
+	"strings"
 )
 
 const LEVEL_DIFFERENCE = 3
@@ -97,27 +98,30 @@ func getRandomNameByLevel(level int) string {
 	return name
 }
 
-func getWeaponByLevel(level int) item.Weapon {
+func getWeaponByLevel(level int, luck int) item.Weapon {
 	weapon := &item.WeaponImpl{}
-
-	weapon.Item = makeWeaponItem(level)
-	weapon.DamageType = getWeaponDamageType()
-	weapon.Damage, weapon.AttackSpeed = getWeaponDamageAndAttackSpeed(level)
-
-	return weapon
-}
-
-func makeWeaponItem(level int) item.Item {
 	weaponItem := &item.ItemImpl{}
-
 	weaponItem.Name = nameWeapon(level)
 	weaponItem.Level = level
-	weaponItem.StrReq = 0
-	weaponItem.DexReq = 0
-	weaponItem.IntReq = 0
+
+	if strings.Contains(weaponItem.Name, "Staff") {
+		weapon.DamageType = item.MAGICAL
+		weapon.Damage, weapon.AttackSpeed = getWeaponDamageAndAttackSpeedMagical(level, luck)
+		weaponItem.StrReq = 1 + utils.GetRandomNumberInRange(0, level)
+		weaponItem.DexReq = 5 + utils.GetRandomNumberInRange(0, level)
+		weaponItem.IntReq = level + 10 + utils.GetRandomNumberInRange(0, level)
+	} else {
+		weapon.DamageType = item.NORMAL
+		weapon.Damage, weapon.AttackSpeed = getWeaponDamageAndAttackSpeed(level, luck)
+		weaponItem.StrReq = level + 10 + utils.GetRandomNumberInRange(0, level)
+		weaponItem.DexReq = 4 + utils.GetRandomNumberInRange(0, level)
+		weaponItem.IntReq = 1 + utils.GetRandomNumberInRange(0, level)
+	}
 	weaponItem.Type = item.WEAPON
 
-	return weaponItem
+	weapon.Item = weaponItem
+
+	return weapon
 }
 
 func nameWeapon(level int) string {
@@ -164,18 +168,8 @@ func nameWeapon(level int) string {
 	return name
 }
 
-func getWeaponDamageType() item.DamageType {
-	number := utils.GetRandomNumberInRange(0, 1)
-
-	if number != 0 {
-		return item.MAGICAL
-	} else {
-		return item.NORMAL
-	}
-}
-
-func getWeaponDamageAndAttackSpeed(level int) (int, float32) {
-	damage := utils.GetRandomNumberInRange(level-LEVEL_DIFFERENCE_WEAPON, level+LEVEL_DIFFERENCE_WEAPON)
+func getWeaponDamageAndAttackSpeed(level int, luck int) (int, float32) {
+	damage := utils.GetRandomNumberInRange(level-LEVEL_DIFFERENCE_WEAPON, level+LEVEL_DIFFERENCE_WEAPON+luck)
 	var attackSpeed float32
 
 	if damage > level {
@@ -187,12 +181,25 @@ func getWeaponDamageAndAttackSpeed(level int) (int, float32) {
 	return damage, attackSpeed
 }
 
-func getArmorByLevel(level int) item.Armor {
+func getWeaponDamageAndAttackSpeedMagical(level int, luck int) (int, float32) {
+	damage := utils.GetRandomNumberInRange(level-LEVEL_DIFFERENCE_WEAPON, level+LEVEL_DIFFERENCE_WEAPON+luck)
+	var attackSpeed float32
+
+	if damage > level {
+		attackSpeed = utils.GetRandomFloatInRange(0.4, 0.7)
+	} else {
+		attackSpeed = utils.GetRandomFloatInRange(0.8, 1.1)
+	}
+
+	return damage, attackSpeed
+}
+
+func getArmorByLevel(level int, luck int) item.Armor {
 	armor := item.ArmorImpl{}
 
 	armor.Item = makeArmorItem(level)
-	armor.Defense = utils.GetRandomNumberInRange(level-LEVEL_DIFFERENCE_ARMOR_DEFENSE, level+LEVEL_DIFFERENCE_ARMOR_DEFENSE)
-	armor.Weight = utils.GetRandomNumberInRange(level-LEVEL_DIFFERENCE_ARMOR_WEIGHT, level+LEVEL_DIFFERENCE_ARMOR_WEIGHT)
+	armor.Defense = utils.GetRandomNumberInRange(level-LEVEL_DIFFERENCE_ARMOR_DEFENSE, level+LEVEL_DIFFERENCE_ARMOR_DEFENSE+luck)
+	armor.Weight = utils.GetRandomNumberInRange(level-LEVEL_DIFFERENCE_ARMOR_WEIGHT, level+LEVEL_DIFFERENCE_ARMOR_WEIGHT+luck)
 
 	return armor
 }
@@ -203,9 +210,9 @@ func makeArmorItem(level int) item.Item {
 	armorItem.Name = nameArmor(level)
 	armorItem.Level = level
 	armorItem.Type = item.ARMOR
-	armorItem.StrReq = 0
-	armorItem.DexReq = 0
-	armorItem.IntReq = 0
+	armorItem.StrReq = level + utils.GetRandomNumberInRange(0, level)
+	armorItem.DexReq = level + utils.GetRandomNumberInRange(0, level)
+	armorItem.IntReq = level + utils.GetRandomNumberInRange(0, level)
 
 	return armorItem
 }
