@@ -15,7 +15,7 @@ const MAX_STARTING_STATS = 45
 
 /*** WARRIOR Defaults **/
 const (
-	WAR_HP       = 30
+	WAR_HP       = 40
 	WAR_STR      = 9
 	WAR_STR_UP   = 3
 	WAR_CONST    = 10
@@ -52,8 +52,8 @@ func GetWarriorDefaults() (item.Weapon, item.Armor) {
 			DexReq: 1,
 			IntReq: 1,
 		},
-		Defense: 4,
-		Weight:  2,
+		Defense: 7,
+		Weight:  3,
 	}
 
 	return warWeapon, warArmor
@@ -61,7 +61,7 @@ func GetWarriorDefaults() (item.Weapon, item.Armor) {
 
 /*** ROGUE Defaults **/
 const (
-	ROG_HP       = 26
+	ROG_HP       = 36
 	ROG_STR      = 4
 	ROG_STR_UP   = 1
 	ROG_CONST    = 8
@@ -85,7 +85,7 @@ func GetRogueDefaults() (item.Weapon, item.Armor) {
 			IntReq: 1,
 		},
 		DamageType:  item.NORMAL,
-		Damage:      3,
+		Damage:      7,
 		AttackSpeed: 2.8,
 	}
 
@@ -98,8 +98,8 @@ func GetRogueDefaults() (item.Weapon, item.Armor) {
 			DexReq: 1,
 			IntReq: 1,
 		},
-		Defense: 2,
-		Weight:  1,
+		Defense: 9,
+		Weight:  2,
 	}
 
 	return warWeapon, warArmor
@@ -107,7 +107,7 @@ func GetRogueDefaults() (item.Weapon, item.Armor) {
 
 /*** WIZARD Defaults **/
 const (
-	WIZ_HP       = 23
+	WIZ_HP       = 33
 	WIZ_STR      = 3
 	WIZ_STR_UP   = 1
 	WIZ_CONST    = 5
@@ -131,7 +131,7 @@ func GetWizardDefaults() (item.Weapon, item.Armor) {
 			IntReq: 1,
 		},
 		DamageType:  item.MAGICAL,
-		Damage:      2,
+		Damage:      3,
 		AttackSpeed: 1.6,
 	}
 
@@ -144,7 +144,7 @@ func GetWizardDefaults() (item.Weapon, item.Armor) {
 			DexReq: 1,
 			IntReq: 1,
 		},
-		Defense: 1,
+		Defense: 5,
 		Weight:  1,
 	}
 
@@ -153,7 +153,7 @@ func GetWizardDefaults() (item.Weapon, item.Armor) {
 
 /*** BARBARIAN Defaults **/
 const (
-	BAR_HP       = 34
+	BAR_HP       = 44
 	BAR_STR      = 13
 	BAR_STR_UP   = 4
 	BAR_CONST    = 13
@@ -190,8 +190,8 @@ func GetBarbarianDefaults() (item.Weapon, item.Armor) {
 			DexReq: 1,
 			IntReq: 1,
 		},
-		Defense: 4,
-		Weight:  2,
+		Defense: 8,
+		Weight:  3,
 	}
 
 	return warWeapon, warArmor
