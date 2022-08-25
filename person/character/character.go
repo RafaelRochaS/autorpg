@@ -298,6 +298,7 @@ func (c *CharacterImpl) AddPoints() {
 
 			if total > 10 {
 				fmt.Println("Too many points added, try again.")
+				total = 0
 				continue
 			}
 
