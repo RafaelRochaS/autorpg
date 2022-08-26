@@ -39,7 +39,7 @@ func GetWarriorDefaults() (item.Weapon, item.Armor) {
 			IntReq: 1,
 		},
 		DamageType:  item.NORMAL,
-		Damage:      5,
+		Damage:      11,
 		AttackSpeed: 1.6,
 	}
 
@@ -52,7 +52,7 @@ func GetWarriorDefaults() (item.Weapon, item.Armor) {
 			DexReq: 1,
 			IntReq: 1,
 		},
-		Defense: 7,
+		Defense: 13,
 		Weight:  3,
 	}
 
@@ -177,7 +177,7 @@ func GetBarbarianDefaults() (item.Weapon, item.Armor) {
 			IntReq: 1,
 		},
 		DamageType:  item.NORMAL,
-		Damage:      8,
+		Damage:      11,
 		AttackSpeed: 1,
 	}
 
@@ -190,8 +190,8 @@ func GetBarbarianDefaults() (item.Weapon, item.Armor) {
 			DexReq: 1,
 			IntReq: 1,
 		},
-		Defense: 8,
-		Weight:  3,
+		Defense: 16,
+		Weight:  4,
 	}
 
 	return warWeapon, warArmor

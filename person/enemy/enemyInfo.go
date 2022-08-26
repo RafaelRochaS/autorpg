@@ -9,7 +9,7 @@ import (
 const LEVEL_DIFFERENCE = 2
 const LEVEL_DIFFERENCE_WEAPON = 10
 const LEVEL_DIFFERENCE_ARMOR_DEFENSE = 15
-const LEVEL_DIFFERENCE_ARMOR_WEIGHT = 10
+const LEVEL_DIFFERENCE_ARMOR_WEIGHT = 2
 
 /* Naming Scheme:
 Level 1-10: first name level 1 last name level 1
