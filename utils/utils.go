@@ -3,10 +3,12 @@ package utils
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"math"
 	"math/rand"
 	"os"
 	"os/exec"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -30,21 +32,33 @@ func AwaitInput() {
 	fmt.Scanln()
 }
 
-func ReadString() string {
-	reader := bufio.NewReader(os.Stdin)
+func ReadString(io io.Reader) (string, error) {
+	reader := bufio.NewReader(io)
 	fmt.Print("-> ")
-	text, _ := reader.ReadString('\n')
+
+	text, err := reader.ReadString('\n')
+	if err != nil {
+		return "", err
+	}
+
 	text = strings.Replace(text, "\n", "", -1)
 
-	return text
+	return text, nil
 }
 
-func ReadInt() int {
-	var num int
-	fmt.Print("-> ")
-	fmt.Scanf("%d", &num)
+func ReadInt(io io.Reader) (int, error) {
+	str, err := ReadString(io)
+	if err != nil {
+		return -1, err
+	}
+	str = strings.TrimSpace(str)
 
-	return num
+	num, err := strconv.Atoi(str)
+	if err != nil {
+		return -1, err
+	}
+
+	return num, nil
 }
 
 func GetRandomNumberInRange(min, max int) int {

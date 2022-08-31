@@ -10,6 +10,7 @@ type Character interface {
 	SetName(string)
 	SetStats()
 	SetClass(Class)
+	GetClass() Class
 	AttachWeapon(item.Weapon)
 	AttachArmor(item.Armor)
 	RemoveItem(item.ItemType)

@@ -6,6 +6,7 @@ import (
 	"autorpg/person/enemy"
 	"autorpg/utils"
 	"fmt"
+	"os"
 )
 
 func main() {
@@ -18,7 +19,7 @@ func main() {
 
 	combatEngine := combat.NewCombat()
 
-	character := character.NewCharacter()
+	character := character.NewCharacter(os.Stdin)
 	character.Create()
 
 	for {
