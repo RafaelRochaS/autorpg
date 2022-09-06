@@ -8,8 +8,6 @@ import (
 type Character interface {
 	Create()
 	SetName(string)
-	SetStats()
-	SetClass(Class)
 	GetClass() Class
 	AttachWeapon(item.Weapon)
 	AttachArmor(item.Armor)

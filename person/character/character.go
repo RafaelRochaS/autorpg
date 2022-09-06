@@ -61,7 +61,6 @@ func (c *CharacterImpl) Create() {
 	fmt.Printf("\nCool, '%v', that's a good name, I guess. I don't really know.\n", c.Person.Name)
 
 	printChooseClass()
-	var class int
 	selected := false
 
 	if utils.DEBUG != "True" {
@@ -70,23 +69,29 @@ func (c *CharacterImpl) Create() {
 				break
 			}
 
-			fmt.Scanf("%d", &class)
+			class, err := utils.ReadInt(c.io)
+			if err != nil {
+				fmt.Println("**************************************************************")
+				fmt.Println(c.io)
+				fmt.Println("**************************************************************")
+				log.Fatal(err.Error())
+			}
 
 			switch class - 1 {
 			case int(WARRIOR):
-				c.SetClass(WARRIOR)
+				c.setClass(WARRIOR)
 				selected = true
 
 			case int(ROGUE):
-				c.SetClass(ROGUE)
+				c.setClass(ROGUE)
 				selected = true
 
 			case int(WIZARD):
-				c.SetClass(WIZARD)
+				c.setClass(WIZARD)
 				selected = true
 
 			case int(BARBARIAN):
-				c.SetClass(BARBARIAN)
+				c.setClass(BARBARIAN)
 				selected = true
 
 			default:
@@ -95,16 +100,16 @@ func (c *CharacterImpl) Create() {
 		}
 	} else {
 		fmt.Println("\n***[DEBUG] mode enabled, choosing default char class...")
-		c.SetClass(BARBARIAN)
+		c.setClass(BARBARIAN)
 	}
 
 	fmt.Printf("\nSelected class: %v\n", c.Class)
 
 	printChooseStats()
-	c.SetStats()
+	c.setStats()
 
 	printAddPoints()
-	c.AddPoints()
+	c.addPoints()
 
 	printChar(*c)
 
@@ -136,7 +141,7 @@ func (c *CharacterImpl) SetName(name string) {
 	c.Person.Name = name
 }
 
-func (c *CharacterImpl) SetStats() {
+func (c *CharacterImpl) setStats() {
 	switch c.Class {
 	case WARRIOR:
 		c.Stats.HP = WAR_HP
@@ -196,11 +201,11 @@ func (c *CharacterImpl) SetStats() {
 	printCurrentStats(*c)
 }
 
-func (c *CharacterImpl) SetClass(class Class) { // Assumes class is a valid int that belongs to an existing class
+func (c *CharacterImpl) setClass(class Class) { // Assumes class is a valid int that belongs to an existing class
 	c.Class = class
 }
 
-func (c *CharacterImpl) AddPoints() {
+func (c *CharacterImpl) addPoints() {
 	var total int
 
 	if utils.DEBUG != "True" {
