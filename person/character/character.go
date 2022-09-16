@@ -414,3 +414,7 @@ func (c CharacterImpl) GetLuck() int {
 func (c CharacterImpl) GetClass() Class {
 	return c.Class
 }
+
+func (c CharacterImpl) GetCurrentXp() int {
+	return c.CurrentXp
+}
