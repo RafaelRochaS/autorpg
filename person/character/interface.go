@@ -6,7 +6,7 @@ import (
 )
 
 type Character interface {
-	Create()
+	Create() error
 	SetName(string)
 	GetClass() Class
 	AttachWeapon(item.Weapon)

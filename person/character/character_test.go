@@ -5,6 +5,7 @@ import (
 	"autorpg/utils"
 	"errors"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -91,6 +92,11 @@ func TestCharacterItems(t *testing.T) {
 	defaultWeapon := char.GetWeapon()
 	defaultArmor := char.GetArmor()
 
+	setDefaultEquipment := func() {
+		char.AttachWeapon(defaultWeapon)
+		char.AttachArmor(defaultArmor)
+	}
+
 	t.Run("Set test weapon", func(t *testing.T) {
 		char.AttachWeapon(weapon)
 		if char.GetWeapon().GetName() != weaponTestName {
@@ -150,8 +156,7 @@ func TestCharacterItems(t *testing.T) {
 	})
 
 	t.Run("Check Weapon Drop - useable/bad", func(t *testing.T) {
-		char.AttachWeapon(defaultWeapon)
-		char.AttachArmor(defaultArmor)
+		setDefaultEquipment()
 		testWeaponItem := createTestItem(1, 1, 1, 1)
 		testWeapon := &item.WeaponImpl{
 			Item:        testWeaponItem,
@@ -167,8 +172,7 @@ func TestCharacterItems(t *testing.T) {
 	})
 
 	t.Run("Check Weapon Drop - useable/good", func(t *testing.T) {
-		char.AttachWeapon(defaultWeapon)
-		char.AttachArmor(defaultArmor)
+		setDefaultEquipment()
 		testWeaponItem := createTestItem(1, 1, 1, 1)
 		testWeapon := &item.WeaponImpl{
 			Item:        testWeaponItem,
@@ -183,9 +187,24 @@ func TestCharacterItems(t *testing.T) {
 		}
 	})
 
+	t.Run("Check Weapon Drop - useable/good - low attackspeed", func(t *testing.T) {
+		setDefaultEquipment()
+		testWeaponItem := createTestItem(1, 1, 1, 1)
+		testWeapon := &item.WeaponImpl{
+			Item:        testWeaponItem,
+			DamageType:  item.NORMAL,
+			Damage:      999,
+			AttackSpeed: 0.01,
+		}
+
+		char.HandleWeaponDrop(testWeapon)
+		if char.GetWeapon().GetName() != itemTestName {
+			t.Error("Character Items Error - Handle weapon drop - useable/good :: was supposed to equip")
+		}
+	})
+
 	t.Run("Check Weapon Drop - unuseable", func(t *testing.T) {
-		char.AttachWeapon(defaultWeapon)
-		char.AttachArmor(defaultArmor)
+		setDefaultEquipment()
 		testWeaponItem := createTestItem(1, 999, 999, 999)
 		testWeapon := &item.WeaponImpl{
 			Item:        testWeaponItem,
@@ -199,6 +218,66 @@ func TestCharacterItems(t *testing.T) {
 			t.Error("Character Items Error - Handle weapon drop - unuseable :: was not supposed to equip")
 		}
 	})
+
+	t.Run("Check Armor Drop - unuseable", func(t *testing.T) {
+		setDefaultEquipment()
+		testArmorItem := createTestItem(1, 999, 999, 999)
+		testArmor := &item.ArmorImpl{
+			Item:    testArmorItem,
+			Defense: 1,
+			Weight:  1,
+		}
+
+		char.HandleArmorDrop(testArmor)
+		if char.GetArmor().GetName() == itemTestName {
+			t.Error("Character Items Error - Handle armor drop - unuseable :: was not supposed to equip")
+		}
+	})
+
+	t.Run("Check Armor Drop - useable/bad", func(t *testing.T) {
+		setDefaultEquipment()
+		testArmorItem := createTestItem(1, 1, 1, 1)
+		testArmor := &item.ArmorImpl{
+			Item:    testArmorItem,
+			Defense: 1,
+			Weight:  1,
+		}
+
+		char.HandleArmorDrop(testArmor)
+		if char.GetArmor().GetName() == itemTestName {
+			t.Error("Character Items Error - Handle armor drop - useable/bad :: was not supposed to equip")
+		}
+	})
+
+	t.Run("Check Armor Drop - useable/good", func(t *testing.T) {
+		setDefaultEquipment()
+		testArmorItem := createTestItem(1, 1, 1, 1)
+		testArmor := &item.ArmorImpl{
+			Item:    testArmorItem,
+			Defense: 100,
+			Weight:  1,
+		}
+
+		char.HandleArmorDrop(testArmor)
+		if char.GetArmor().GetName() != itemTestName {
+			t.Error("Character Items Error - Handle armor drop - useable/good :: was supposed to equip")
+		}
+	})
+
+	t.Run("Check Armor Drop - useable/good - heavy but good defense", func(t *testing.T) {
+		setDefaultEquipment()
+		testArmorItem := createTestItem(1, 1, 1, 1)
+		testArmor := &item.ArmorImpl{
+			Item:    testArmorItem,
+			Defense: 1000,
+			Weight:  100,
+		}
+
+		char.HandleArmorDrop(testArmor)
+		if char.GetArmor().GetName() != itemTestName {
+			t.Error("Character Items Error - Handle armor drop - useable/good - heavy but good defense :: was supposed to equip")
+		}
+	})
 }
 
 func TestCharacterLevel(t *testing.T) {
@@ -210,7 +289,7 @@ func TestCharacterLevel(t *testing.T) {
 	t.Run("Attempt level - no xp", func(t *testing.T) {
 		char.LevelUp()
 		if currentLevel < char.GetPerson().Level {
-			t.Error("Character Level Error - Leveled up with no xp")
+			t.Error("Character Level Error :: Leveled up with no xp")
 		}
 	})
 
@@ -218,14 +297,133 @@ func TestCharacterLevel(t *testing.T) {
 		currentXp := char.GetCurrentXp()
 		char.IncreaseXP(1000)
 		if currentXp >= char.GetCurrentXp() {
-			t.Error("Character Level Error - xp increase did not change xp")
+			t.Error("Character Level Error :: xp increase did not change xp")
 		}
 	})
 
 	t.Run("Attempt level - given xp", func(t *testing.T) {
 		char.LevelUp()
 		if currentLevel >= char.GetPerson().Level {
-			t.Error("Character Level Error - Given xp and not leveled up")
+			t.Error("Character Level Error :: Given xp and not leveled up")
+		}
+	})
+}
+
+func TestStdin(t *testing.T) {
+	utils.DEBUG = "False"
+	const namingTest = "Test Name\n"
+	const namingTestError = "Test Name"
+
+	t.Run("Test Handle Naming", func(t *testing.T) {
+		char := &CharacterImpl{
+			io: strings.NewReader(namingTest),
+		}
+		err := char.HandleNaming()
+		if err != nil {
+			t.Errorf("Character Stdin Error - Naming :: error where it shouldnt")
+		}
+
+		if char.GetPerson().Name != strings.Replace(namingTest, "\n", "", -1) {
+			t.Errorf("Character Stdin Error - Naming :: got %s, wanted %s",
+				char.GetPerson().Name, namingTest)
+		}
+	})
+
+	t.Run("Test Handle Naming - Error", func(t *testing.T) {
+		char := &CharacterImpl{
+			io: strings.NewReader(namingTestError),
+		}
+		err := char.HandleNaming()
+
+		if err == nil {
+			t.Errorf("Character Stdin Error - Naming with Error :: failed input did not error")
+		}
+	})
+
+	t.Run("Set class - Warrior", func(t *testing.T) {
+		char := &CharacterImpl{
+			io: strings.NewReader("1\n"),
+		}
+		err := char.HandleClass()
+
+		if err != nil {
+			t.Errorf("Character Stdin Error - Class (Warrior) :: got error: %s", err.Error())
+		}
+
+		if char.GetClass() != WARRIOR {
+			t.Errorf("Character Stdin Error - Class (Warrior) :: got wrong class: %s", char.GetClass())
+		}
+
+		if char.GetHP() != WAR_HP {
+			t.Errorf("Character Stdin Error - Class (Warrior) :: got wrong HP: %d", char.GetHP())
+		}
+	})
+
+	t.Run("Set class - Rogue", func(t *testing.T) {
+		char := &CharacterImpl{
+			io: strings.NewReader("2\n"),
+		}
+		err := char.HandleClass()
+
+		if err != nil {
+			t.Errorf("Character Stdin Error - Class (Rogue) :: got error: %s", err.Error())
+		}
+
+		if char.GetClass() != ROGUE {
+			t.Errorf("Character Stdin Error - Class (Rogue) :: got wrong class: %s", char.GetClass())
+		}
+
+		if char.GetHP() != ROG_HP {
+			t.Errorf("Character Stdin Error - Class (Rogue) :: got wrong HP: %d", char.GetHP())
+		}
+	})
+
+	t.Run("Set class - Wizard", func(t *testing.T) {
+		char := &CharacterImpl{
+			io: strings.NewReader("3\n"),
+		}
+		err := char.HandleClass()
+
+		if err != nil {
+			t.Errorf("Character Stdin Error - Class (Wizard) :: got error: %s", err.Error())
+		}
+
+		if char.GetClass() != WIZARD {
+			t.Errorf("Character Stdin Error - Class (Wizard) :: got wrong class: %s", char.GetClass())
+		}
+
+		if char.GetHP() != WIZ_HP {
+			t.Errorf("Character Stdin Error - Class (Wizard) :: got wrong HP: %d", char.GetHP())
+		}
+	})
+
+	t.Run("Set class - Barbarian", func(t *testing.T) {
+		char := &CharacterImpl{
+			io: strings.NewReader("4\n"),
+		}
+		err := char.HandleClass()
+
+		if err != nil {
+			t.Errorf("Character Stdin Error - Class (Barbarian) :: got error: %s", err.Error())
+		}
+
+		if char.GetClass() != BARBARIAN {
+			t.Errorf("Character Stdin Error - Class (Barbarian) :: got wrong class: %s", char.GetClass())
+		}
+
+		if char.GetHP() != BAR_HP {
+			t.Errorf("Character Stdin Error - Class (Barbarian) :: got wrong HP: %d", char.GetHP())
+		}
+	})
+
+	t.Run("Set class - Failed input", func(t *testing.T) {
+		char := &CharacterImpl{
+			io: strings.NewReader("banana\n"),
+		}
+		err := char.HandleClass()
+
+		if err == nil {
+			t.Errorf("Character Stdin Error - Class - Failed input :: did not get error")
 		}
 	})
 }

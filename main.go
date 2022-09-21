@@ -6,6 +6,7 @@ import (
 	"autorpg/person/enemy"
 	"autorpg/utils"
 	"fmt"
+	"log"
 	"os"
 )
 
@@ -20,7 +21,11 @@ func main() {
 	combatEngine := combat.NewCombat()
 
 	character := character.NewCharacter(os.Stdin)
-	character.Create()
+	err := character.Create()
+	if err != nil {
+		log.Printf("Error creating character: %s", err.Error())
+		log.Fatal("Exiting...")
+	}
 
 	for {
 		fmt.Print("Generating enemy...\n")

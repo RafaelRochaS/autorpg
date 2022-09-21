@@ -33,7 +33,7 @@ type Stats struct {
 	Luck_UP  int
 }
 
-/*** Helper Functions **/
+/*** Helper Functions ***/
 
 func NewCharacter(io io.Reader) Character {
 	return &CharacterImpl{
@@ -41,16 +41,62 @@ func NewCharacter(io io.Reader) Character {
 	}
 }
 
-/*** Character Functions **/
+/*** Character Functions ***/
 
-func (c *CharacterImpl) Create() {
+func (c *CharacterImpl) Create() error {
 	printCreation()
+
+	err := c.HandleNaming()
+	if err != nil {
+		log.Printf("Error geting name: %s", err.Error())
+		return err
+	}
+
+	err = c.HandleClass()
+	if err != nil {
+		log.Printf("Error setting class: %s", err.Error())
+	}
+
+	printChooseStats()
+	printAddPoints()
+	c.addPoints()
+
+	printChar(*c)
+
+	var weapon item.Weapon
+	var armor item.Armor
+
+	if utils.DEBUG != "True" {
+		switch c.Class {
+		case WARRIOR:
+			weapon, armor = GetWarriorDefaults()
+		case ROGUE:
+			weapon, armor = GetRogueDefaults()
+		case WIZARD:
+			weapon, armor = GetWizardDefaults()
+		case BARBARIAN:
+			weapon, armor = GetBarbarianDefaults()
+		}
+	} else {
+		weapon, armor = GetBarbarianDefaults()
+	}
+
+	c.AttachWeapon(weapon)
+	c.AttachArmor(armor)
+
+	printGear(*c)
+
+	return nil
+}
+
+func (c *CharacterImpl) HandleNaming() error {
 	printName()
 
 	if utils.DEBUG != "True" {
 		str, err := utils.ReadString(c.io)
 		if err != nil {
-			log.Fatalf("Error getting character name")
+			log.Print("Error getting character name")
+			return err
 		}
 		c.SetName(str)
 	} else {
@@ -60,6 +106,10 @@ func (c *CharacterImpl) Create() {
 
 	fmt.Printf("\nCool, '%v', that's a good name, I guess. I don't really know.\n", c.Person.Name)
 
+	return nil
+}
+
+func (c *CharacterImpl) HandleClass() error {
 	printChooseClass()
 	selected := false
 
@@ -71,10 +121,8 @@ func (c *CharacterImpl) Create() {
 
 			class, err := utils.ReadInt(c.io)
 			if err != nil {
-				fmt.Println("**************************************************************")
-				fmt.Println(c.io)
-				fmt.Println("**************************************************************")
-				log.Fatal(err.Error())
+				log.Print("Error getting character class")
+				return err
 			}
 
 			switch class - 1 {
@@ -104,37 +152,8 @@ func (c *CharacterImpl) Create() {
 	}
 
 	fmt.Printf("\nSelected class: %v\n", c.Class)
-
-	printChooseStats()
 	c.setStats()
-
-	printAddPoints()
-	c.addPoints()
-
-	printChar(*c)
-
-	var weapon item.Weapon
-	var armor item.Armor
-
-	if utils.DEBUG != "True" {
-		switch c.Class {
-		case WARRIOR:
-			weapon, armor = GetWarriorDefaults()
-		case ROGUE:
-			weapon, armor = GetRogueDefaults()
-		case WIZARD:
-			weapon, armor = GetWizardDefaults()
-		case BARBARIAN:
-			weapon, armor = GetBarbarianDefaults()
-		}
-	} else {
-		weapon, armor = GetBarbarianDefaults()
-	}
-
-	c.AttachWeapon(weapon)
-	c.AttachArmor(armor)
-
-	printGear(*c)
+	return nil
 }
 
 func (c *CharacterImpl) SetName(name string) {
