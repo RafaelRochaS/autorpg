@@ -4,6 +4,7 @@ import (
 	"autorpg/item"
 	"autorpg/person"
 	"autorpg/utils"
+	"errors"
 	"fmt"
 	"io"
 	"log"
@@ -59,32 +60,17 @@ func (c *CharacterImpl) Create() error {
 
 	printChooseStats()
 	printAddPoints()
-	c.addPoints()
-
-	printChar(*c)
-
-	var weapon item.Weapon
-	var armor item.Armor
-
-	if utils.DEBUG != "True" {
-		switch c.Class {
-		case WARRIOR:
-			weapon, armor = GetWarriorDefaults()
-		case ROGUE:
-			weapon, armor = GetRogueDefaults()
-		case WIZARD:
-			weapon, armor = GetWizardDefaults()
-		case BARBARIAN:
-			weapon, armor = GetBarbarianDefaults()
-		}
-	} else {
-		weapon, armor = GetBarbarianDefaults()
+	err = c.AddPoints()
+	if err != nil {
+		log.Printf("Error adding points: %s", err.Error())
 	}
 
-	c.AttachWeapon(weapon)
-	c.AttachArmor(armor)
+	err = c.HandleDefaultEquipment()
+	if err != nil {
+		log.Printf("Error setting default equipment: %s", err.Error())
+	}
 
-	printGear(*c)
+	printChar(*c)
 
 	return nil
 }
@@ -95,7 +81,6 @@ func (c *CharacterImpl) HandleNaming() error {
 	if utils.DEBUG != "True" {
 		str, err := utils.ReadString(c.io)
 		if err != nil {
-			log.Print("Error getting character name")
 			return err
 		}
 		c.SetName(str)
@@ -121,7 +106,6 @@ func (c *CharacterImpl) HandleClass() error {
 
 			class, err := utils.ReadInt(c.io)
 			if err != nil {
-				log.Print("Error getting character class")
 				return err
 			}
 
@@ -153,6 +137,37 @@ func (c *CharacterImpl) HandleClass() error {
 
 	fmt.Printf("\nSelected class: %v\n", c.Class)
 	c.setStats()
+	return nil
+}
+
+func (c *CharacterImpl) HandleDefaultEquipment() error {
+	var weapon item.Weapon
+	var armor item.Armor
+
+	if utils.DEBUG != "True" {
+		switch c.Class {
+		case WARRIOR:
+			weapon, armor = GetWarriorDefaults()
+		case ROGUE:
+			weapon, armor = GetRogueDefaults()
+		case WIZARD:
+			weapon, armor = GetWizardDefaults()
+		case BARBARIAN:
+			weapon, armor = GetBarbarianDefaults()
+		}
+	} else {
+		weapon, armor = GetBarbarianDefaults()
+	}
+
+	c.AttachWeapon(weapon)
+	c.AttachArmor(armor)
+
+	if c.GetArmor() == nil || c.GetWeapon() == nil {
+		return errors.New("failed to set default equipment")
+	}
+
+	printGear(*c)
+
 	return nil
 }
 
@@ -224,26 +239,42 @@ func (c *CharacterImpl) setClass(class Class) { // Assumes class is a valid int 
 	c.Class = class
 }
 
-func (c *CharacterImpl) addPoints() {
+func (c *CharacterImpl) AddPoints() error {
 	var total int
+	errArray := make([]error, 0)
 
 	if utils.DEBUG != "True" {
 		for {
 			fmt.Println("How many points to add to strength?")
-			str, _ := utils.ReadInt(c.io)
+			str, err := utils.ReadInt(c.io)
+			errArray = append(errArray, err)
 			total += str
+
 			fmt.Println("How many points to add to Constitution?")
-			consti, _ := utils.ReadInt(c.io)
+			consti, err := utils.ReadInt(c.io)
+			errArray = append(errArray, err)
 			total += consti
+
 			fmt.Println("How many points to add to Dexterity?")
-			dex, _ := utils.ReadInt(c.io)
+			dex, err := utils.ReadInt(c.io)
+			errArray = append(errArray, err)
 			total += dex
+
 			fmt.Println("How many points to add to Intelligence?")
-			intel, _ := utils.ReadInt(c.io)
+			intel, err := utils.ReadInt(c.io)
+			errArray = append(errArray, err)
 			total += intel
+
 			fmt.Println("How many points to add to Luck?")
-			luck, _ := utils.ReadInt(c.io)
+			luck, err := utils.ReadInt(c.io)
+			errArray = append(errArray, err)
 			total += luck
+
+			err = checkForErrors(errArray)
+
+			if err != nil {
+				return err
+			}
 
 			if total > 10 {
 				fmt.Println("Too many points added, try again.")
@@ -266,6 +297,8 @@ func (c *CharacterImpl) addPoints() {
 		c.Stats.Int += 0
 		c.Stats.Luck += 1
 	}
+
+	return nil
 }
 
 func (c *CharacterImpl) AttachWeapon(w item.Weapon) {

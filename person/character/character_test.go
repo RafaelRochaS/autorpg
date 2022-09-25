@@ -357,6 +357,28 @@ func TestStdin(t *testing.T) {
 		if char.GetHP() != WAR_HP {
 			t.Errorf("Character Stdin Error - Class (Warrior) :: got wrong HP: %d", char.GetHP())
 		}
+
+		t.Run("Check defaults - Warrior", func(t *testing.T) {
+			char.HandleDefaultEquipment()
+			warWeapon, warArmor := GetWarriorDefaults()
+			if char.GetArmor() != warArmor {
+				t.Errorf("Character Stdin Error - Class (Warrior) :: got wrong Armor: %s", char.GetArmor().GetName())
+			}
+			if char.GetWeapon() != warWeapon {
+				t.Errorf("Character Stdin Error - Class (Warrior) :: got wrong Weapon: %s", char.GetWeapon().GetName())
+			}
+		})
+
+		t.Run("Level up - Warrior", func(t *testing.T) {
+			currentStr := char.Stats.Str
+			char.IncreaseXP(1000)
+			char.LevelUp()
+
+			if char.Stats.Str != (currentStr + WAR_STR_UP) {
+				t.Errorf("Character Stdin Error - Class (Warrior) :: stats increase did not match expected: got %d, wanted %d",
+					char.Stats.Str, (currentStr + WAR_STR_UP))
+			}
+		})
 	})
 
 	t.Run("Set class - Rogue", func(t *testing.T) {
@@ -376,6 +398,28 @@ func TestStdin(t *testing.T) {
 		if char.GetHP() != ROG_HP {
 			t.Errorf("Character Stdin Error - Class (Rogue) :: got wrong HP: %d", char.GetHP())
 		}
+
+		t.Run("Check defaults - Rogue", func(t *testing.T) {
+			char.HandleDefaultEquipment()
+			rogWeapon, rogArmor := GetRogueDefaults()
+			if char.GetArmor() != rogArmor {
+				t.Errorf("Character Stdin Error - Class (Rogue) :: got wrong Armor: %s", char.GetArmor().GetName())
+			}
+			if char.GetWeapon() != rogWeapon {
+				t.Errorf("Character Stdin Error - Class (Rogue) :: got wrong Weapon: %s", char.GetWeapon().GetName())
+			}
+		})
+
+		t.Run("Level up - Rogue", func(t *testing.T) {
+			currentStr := char.Stats.Str
+			char.IncreaseXP(1000)
+			char.LevelUp()
+
+			if char.Stats.Str != (currentStr + ROG_STR_UP) {
+				t.Errorf("Character Stdin Error - Class (Rogue) :: stats increase did not match expected: got %d, wanted %d",
+					char.Stats.Str, (currentStr + ROG_STR_UP))
+			}
+		})
 	})
 
 	t.Run("Set class - Wizard", func(t *testing.T) {
@@ -395,6 +439,28 @@ func TestStdin(t *testing.T) {
 		if char.GetHP() != WIZ_HP {
 			t.Errorf("Character Stdin Error - Class (Wizard) :: got wrong HP: %d", char.GetHP())
 		}
+
+		t.Run("Check defaults - Wizard", func(t *testing.T) {
+			char.HandleDefaultEquipment()
+			wizWeapon, wizArmor := GetWizardDefaults()
+			if char.GetArmor() != wizArmor {
+				t.Errorf("Character Stdin Error - Class (Wizard) :: got wrong Armor: %s", char.GetArmor().GetName())
+			}
+			if char.GetWeapon() != wizWeapon {
+				t.Errorf("Character Stdin Error - Class (Wizard) :: got wrong Weapon: %s", char.GetWeapon().GetName())
+			}
+		})
+
+		t.Run("Level up - Wizard", func(t *testing.T) {
+			currentStr := char.Stats.Str
+			char.IncreaseXP(1000)
+			char.LevelUp()
+
+			if char.Stats.Str != (currentStr + WIZ_STR_UP) {
+				t.Errorf("Character Stdin Error - Class (Wizard) :: stats increase did not match expected: got %d, wanted %d",
+					char.Stats.Str, (currentStr + WIZ_STR_UP))
+			}
+		})
 	})
 
 	t.Run("Set class - Barbarian", func(t *testing.T) {
@@ -424,6 +490,19 @@ func TestStdin(t *testing.T) {
 
 		if err == nil {
 			t.Errorf("Character Stdin Error - Class - Failed input :: did not get error")
+		}
+	})
+
+	t.Run("Add points - failed input", func(t *testing.T) {
+		pointsInput := "2\n2\n2\n2\n2\n"
+		char := &CharacterImpl{
+			io: strings.NewReader(pointsInput),
+		}
+		err := char.AddPoints()
+
+		if err == nil {
+			t.Errorf("Character Stdin Error - Add Point - Failed input :: got no error: %s",
+				err.Error())
 		}
 	})
 }

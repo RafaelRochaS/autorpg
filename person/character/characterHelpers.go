@@ -4,6 +4,7 @@ import (
 	stringsRPG "autorpg/strings"
 	"autorpg/utils"
 	"fmt"
+	"log"
 )
 
 func printCreation() {
@@ -87,4 +88,17 @@ Defense: %d
 Weight: %d
 
 `, c.Person.Armor.GetName(), c.Person.Armor.GetLevel(), c.Person.Armor.GetDefense(), c.Person.Armor.GetWeight())
+}
+
+func checkForErrors(errArr []error) error {
+	log.Printf("Check For Errors :: array length: '%d'", len(errArr))
+	for i := 0; i < len(errArr); i++ {
+		log.Printf("Check For Errors :: current item: '%v'", errArr[i])
+		if errArr[i] != nil {
+			log.Printf("Check For Errors :: got error on index '%d'", i)
+			return errArr[i]
+		}
+	}
+
+	return nil
 }
