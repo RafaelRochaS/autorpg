@@ -40,10 +40,10 @@ func TestRandoms(t *testing.T) {
 	})
 
 	t.Run("Negative mins and maxs return 0 - float", func(t *testing.T) {
-		shouldBeZero := GetRandomFloatInRange(-1, -1)
+		shouldBeLessThanOne := GetRandomFloatInRange(-1, -1)
 
-		if shouldBeZero != 0 {
-			t.Errorf("TestRandoms - negative mins and maxes :: did not return 0, got %f", shouldBeZero)
+		if shouldBeLessThanOne >= 1 {
+			t.Errorf("TestRandoms - negative mins and maxes :: did not return correct, got %f", shouldBeLessThanOne)
 		}
 	})
 }
