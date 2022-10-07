@@ -2,6 +2,7 @@
 
 ![Pipeline](https://github.com/RafaelRochaS/autorpg/actions/workflows/main.yml/badge.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=RafaelRochaS_autorpg&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=RafaelRochaS_autorpg)
+[![codecov](https://codecov.io/github/RafaelRochaS/autorpg/branch/master/graph/badge.svg?token=U71WDNVELT)](https://codecov.io/github/RafaelRochaS/autorpg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/RafaelRochaS/autorpg)](https://goreportcard.com/report/github.com/RafaelRochaS/autorpg)
 
 AutoRPG is an evolution of a previous project, a simple text-based RPG, where you fight randomnly generated enemies, level up, and gain new equipment. However, unlike the previous project, this game plays out all by itself. You simply pick a name, class, base stats, and the game fights random enemies until you die. Its not really meant for fun. But it is a fun software engineering experiment!
