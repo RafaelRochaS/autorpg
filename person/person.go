@@ -1,6 +1,6 @@
 package person
 
-import "autorpg/item"
+import "github.com/RafaelRochaS/autorpg/item"
 
 type Person struct {
 	Name   string

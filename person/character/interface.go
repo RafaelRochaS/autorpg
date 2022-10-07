@@ -1,8 +1,8 @@
 package character
 
 import (
-	"autorpg/item"
-	"autorpg/person"
+	"github.com/RafaelRochaS/autorpg/item"
+	"github.com/RafaelRochaS/autorpg/person"
 )
 
 type Character interface {

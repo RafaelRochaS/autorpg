@@ -1,8 +1,8 @@
 package combat
 
 import (
-	"autorpg/person/character"
-	"autorpg/person/enemy"
+	"github.com/RafaelRochaS/autorpg/person/character"
+	"github.com/RafaelRochaS/autorpg/person/enemy"
 )
 
 type Combat interface {

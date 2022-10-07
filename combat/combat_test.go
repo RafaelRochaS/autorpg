@@ -1,12 +1,13 @@
 package combat
 
 import (
-	"autorpg/item"
-	"autorpg/person/character"
-	"autorpg/person/enemy"
-	"autorpg/utils"
 	"os"
 	"testing"
+
+	"github.com/RafaelRochaS/autorpg/item"
+	"github.com/RafaelRochaS/autorpg/person/character"
+	"github.com/RafaelRochaS/autorpg/person/enemy"
+	"github.com/RafaelRochaS/autorpg/utils"
 
 	"github.com/stretchr/testify/assert"
 )

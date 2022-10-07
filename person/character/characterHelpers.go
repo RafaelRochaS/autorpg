@@ -1,10 +1,11 @@
 package character
 
 import (
-	stringsRPG "autorpg/strings"
-	"autorpg/utils"
 	"fmt"
 	"log"
+
+	stringsRPG "github.com/RafaelRochaS/autorpg/strings"
+	"github.com/RafaelRochaS/autorpg/utils"
 )
 
 func printCreation() {

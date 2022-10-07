@@ -1,12 +1,16 @@
 package combat
 
 import (
-	"autorpg/person/character"
-	"autorpg/person/enemy"
-	stringsRPG "autorpg/strings"
-	"autorpg/utils"
 	"fmt"
 	"os"
+
+	stringsRPG "github.com/RafaelRochaS/autorpg/strings"
+
+	"github.com/RafaelRochaS/autorpg/person/enemy"
+
+	"github.com/RafaelRochaS/autorpg/person/character"
+
+	"github.com/RafaelRochaS/autorpg/utils"
 )
 
 type CombatImpl struct {

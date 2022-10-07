@@ -1,10 +1,11 @@
 package enemy
 
 import (
-	"autorpg/item"
-	"autorpg/person"
-	stringsRPG "autorpg/strings"
 	"fmt"
+
+	"github.com/RafaelRochaS/autorpg/item"
+	"github.com/RafaelRochaS/autorpg/person"
+	stringsRPG "github.com/RafaelRochaS/autorpg/strings"
 )
 
 type EnemyImpl struct {

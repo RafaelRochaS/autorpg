@@ -1,6 +1,6 @@
 package character
 
-import "autorpg/item"
+import "github.com/RafaelRochaS/autorpg/item"
 
 type Class int
 

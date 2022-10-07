@@ -1,13 +1,14 @@
 package main
 
 import (
-	"autorpg/combat"
-	"autorpg/person/character"
-	"autorpg/person/enemy"
-	"autorpg/utils"
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/RafaelRochaS/autorpg/combat"
+	"github.com/RafaelRochaS/autorpg/person/character"
+	"github.com/RafaelRochaS/autorpg/person/enemy"
+	"github.com/RafaelRochaS/autorpg/utils"
 )
 
 func main() {

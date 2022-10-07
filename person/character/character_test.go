@@ -1,12 +1,13 @@
 package character
 
 import (
-	"autorpg/item"
-	"autorpg/utils"
 	"errors"
 	"os"
 	"strings"
 	"testing"
+
+	"github.com/RafaelRochaS/autorpg/item"
+	"github.com/RafaelRochaS/autorpg/utils"
 
 	"github.com/stretchr/testify/assert"
 )

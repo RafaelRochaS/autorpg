@@ -1,14 +1,15 @@
 package character
 
 import (
-	"autorpg/item"
-	"autorpg/person"
-	"autorpg/utils"
 	"errors"
 	"fmt"
 	"io"
 	"log"
 	"math"
+
+	"github.com/RafaelRochaS/autorpg/item"
+	"github.com/RafaelRochaS/autorpg/person"
+	"github.com/RafaelRochaS/autorpg/utils"
 )
 
 type CharacterImpl struct {

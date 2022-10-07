@@ -1,8 +1,9 @@
 package person
 
 import (
-	"autorpg/item"
 	"testing"
+
+	"github.com/RafaelRochaS/autorpg/item"
 )
 
 func setupPersonTesting() Person {

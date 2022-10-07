@@ -1,12 +1,13 @@
 package combat
 
 import (
-	"autorpg/item"
-	"autorpg/person"
-	stringsRPG "autorpg/strings"
-	"autorpg/utils"
 	"fmt"
 	"time"
+
+	"github.com/RafaelRochaS/autorpg/item"
+	"github.com/RafaelRochaS/autorpg/person"
+	stringsRPG "github.com/RafaelRochaS/autorpg/strings"
+	"github.com/RafaelRochaS/autorpg/utils"
 )
 
 func calculateDps(c *CombatImpl) {

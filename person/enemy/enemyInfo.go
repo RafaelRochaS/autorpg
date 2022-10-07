@@ -1,9 +1,10 @@
 package enemy
 
 import (
-	"autorpg/item"
-	"autorpg/utils"
 	"strings"
+
+	"github.com/RafaelRochaS/autorpg/item"
+	"github.com/RafaelRochaS/autorpg/utils"
 )
 
 const LEVEL_DIFFERENCE = 2
