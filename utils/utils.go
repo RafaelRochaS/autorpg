@@ -21,7 +21,7 @@ func ClearScreen() {
 
 func PrintIntro() {
 	fmt.Println("-----------------------------------------------------------------------------")
-	fmt.Println("-\tAutoRPG - An experiment in distributed systems and idle games\t    -")
+	fmt.Println("-\tAutoRPG - An experiment in software engineering and idle games\t    -")
 	fmt.Println("-\tSimply create a character, and let the game play itself, battling,  -")
 	fmt.Println("-\tcollecting gear and leveling up, all on its own.\t\t\t-")
 	fmt.Println("-----------------------------------------------------------------------------")
