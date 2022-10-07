@@ -1,5 +1,7 @@
 # AutoRPG - self playing adventure! (not really)
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=RafaelRochaS_autorpg&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=RafaelRochaS_autorpg)
+
 AutoRPG is an evolution of a previous project, a simple text-based RPG, where you fight randomnly generated enemies, level up, and gain new equipment. However, unlike the previous project, this game plays out all by itself. You simply pick a name, class, base stats, and the game fights random enemies until you die. Its not really meant for fun. But it is a fun software engineering experiment!
 
 
