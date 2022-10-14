@@ -24,7 +24,11 @@ func TestCharacterBasics(t *testing.T) {
 	char := createTestChar()
 
 	t.Run("Create debug character", func(t *testing.T) {
-		char.Create()
+		err := char.Create()
+
+		if err != nil {
+			t.Errorf("Character Basics Error - Debug Creation :: failed to created debug character: %v", err.Error())
+		}
 	})
 
 	t.Run("Set character name", func(t *testing.T) {
@@ -52,9 +56,16 @@ func TestCharacterBasics(t *testing.T) {
 	t.Run("Reader failure", func(t *testing.T) {
 		mockChar := createTestCharBroken()
 		utils.DEBUG = "False"
+		var err error
+
 		assert.Panics(t,
-			func() { mockChar.Create() },
+			func() { err = mockChar.Create() },
 			"Character Basics Error - Mocked Reader :: did not panic")
+
+		if err != nil {
+			t.Errorf("Character Basics Error - Create mock char :: got error: %v",
+				err.Error())
+		}
 	})
 
 	t.Run("Check damage is done", func(t *testing.T) {
@@ -87,7 +98,12 @@ func TestCharacterItems(t *testing.T) {
 	utils.DEBUG = "True"
 
 	char := createTestChar()
-	char.Create()
+	err := char.Create()
+
+	if err != nil {
+		t.Errorf("Character Items Error - Character creation :: got error: %v", err.Error())
+	}
+
 	weapon := createTestWeapon()
 	armor := createTestArmor()
 	defaultWeapon := char.GetWeapon()
@@ -360,7 +376,12 @@ func TestStdin(t *testing.T) {
 		}
 
 		t.Run("Check defaults - Warrior", func(t *testing.T) {
-			char.HandleDefaultEquipment()
+			err := char.HandleDefaultEquipment()
+
+			if err != nil {
+				t.Errorf("Character Stdin Error - Class (Warrior) :: failed to set default equipment: %v", err.Error())
+			}
+
 			warWeapon, warArmor := GetWarriorDefaults()
 			if char.GetArmor() != warArmor {
 				t.Errorf("Character Stdin Error - Class (Warrior) :: got wrong Armor: %s", char.GetArmor().GetName())
@@ -401,7 +422,12 @@ func TestStdin(t *testing.T) {
 		}
 
 		t.Run("Check defaults - Rogue", func(t *testing.T) {
-			char.HandleDefaultEquipment()
+			err := char.HandleDefaultEquipment()
+
+			if err != nil {
+				t.Errorf("Character Stdin Error - Class (Rogue) :: failed to set default equipment: %v", err.Error())
+			}
+
 			rogWeapon, rogArmor := GetRogueDefaults()
 			if char.GetArmor() != rogArmor {
 				t.Errorf("Character Stdin Error - Class (Rogue) :: got wrong Armor: %s", char.GetArmor().GetName())
@@ -442,7 +468,12 @@ func TestStdin(t *testing.T) {
 		}
 
 		t.Run("Check defaults - Wizard", func(t *testing.T) {
-			char.HandleDefaultEquipment()
+			err := char.HandleDefaultEquipment()
+
+			if err != nil {
+				t.Errorf("Character Stdin Error - Class (Barbarian) :: failed to set default equipment: %v", err.Error())
+			}
+
 			wizWeapon, wizArmor := GetWizardDefaults()
 			if char.GetArmor() != wizArmor {
 				t.Errorf("Character Stdin Error - Class (Wizard) :: got wrong Armor: %s", char.GetArmor().GetName())

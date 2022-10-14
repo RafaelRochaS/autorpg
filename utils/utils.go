@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"log"
 	"math"
 	"math/rand"
 	"os"
@@ -16,7 +17,11 @@ import (
 func ClearScreen() {
 	cmd := exec.Command("clear")
 	cmd.Stdout = os.Stdout
-	cmd.Run()
+	err := cmd.Run()
+
+	if err != nil {
+		log.Printf("failed to execute 'clear screen' command: %v", err.Error())
+	}
 }
 
 func PrintIntro() {
