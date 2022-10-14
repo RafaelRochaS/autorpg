@@ -300,7 +300,12 @@ func TestCharacterItems(t *testing.T) {
 func TestCharacterLevel(t *testing.T) {
 	utils.DEBUG = "True"
 	char := createTestChar()
-	char.Create()
+	err := char.Create()
+
+	if err != nil {
+		t.Errorf("Character Level Error :: Failed to create character - got error: %v", err.Error())
+	}
+
 	currentLevel := char.GetPerson().Level
 
 	t.Run("Attempt level - no xp", func(t *testing.T) {
