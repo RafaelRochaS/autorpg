@@ -9,6 +9,7 @@ import (
 
 	"github.com/RafaelRochaS/autorpg/item"
 	"github.com/RafaelRochaS/autorpg/person"
+	stringsRPG "github.com/RafaelRochaS/autorpg/strings"
 	"github.com/RafaelRochaS/autorpg/utils"
 )
 
@@ -402,7 +403,7 @@ func (c CharacterImpl) GetHP() int {
 func (c *CharacterImpl) HandleArmorDrop(drop item.Armor) {
 	if c.canItemBeUsed(drop) {
 		if utils.DEBUG == "True" {
-			fmt.Print("[***DEBUG] ")
+			fmt.Print(stringsRPG.Debug)
 			fmt.Printf("HandleArmorDrop: item can be used")
 		}
 
@@ -416,7 +417,7 @@ func (c *CharacterImpl) HandleArmorDrop(drop item.Armor) {
 			c.Person.SetArmor(drop)
 		}
 	} else if utils.DEBUG == "True" {
-		fmt.Print("[***DEBUG] ")
+		fmt.Print(stringsRPG.Debug)
 		fmt.Printf("HandleArmorDrop: item cannot be used")
 	}
 
@@ -427,7 +428,7 @@ func (c *CharacterImpl) HandleArmorDrop(drop item.Armor) {
 func (c *CharacterImpl) HandleWeaponDrop(drop item.Weapon) {
 	if c.canItemBeUsed(drop) {
 		if utils.DEBUG == "True" {
-			fmt.Print("[***DEBUG] ")
+			fmt.Print(stringsRPG.Debug)
 			fmt.Printf("HandleWeaponDrop: item can be used\n")
 		}
 
@@ -441,7 +442,7 @@ func (c *CharacterImpl) HandleWeaponDrop(drop item.Weapon) {
 			c.Person.SetWeapon(drop)
 		}
 	} else if utils.DEBUG == "True" {
-		fmt.Print("[***DEBUG] ")
+		fmt.Print(stringsRPG.Debug)
 		fmt.Printf("HandleWeaponDrop: item cannot be used\n")
 	}
 

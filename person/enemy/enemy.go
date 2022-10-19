@@ -68,23 +68,23 @@ func (e EnemyImpl) GetDropArmor(luck int) item.Armor {
 func (e EnemyImpl) String() string {
 	fmt.Print(stringsRPG.Separator)
 	str := "Current Enemy:\n"
-	str += "-------------------------------------------------\n"
+	str += stringsRPG.Separator_Inline
 	str += fmt.Sprintf("Name: %s\n", e.GetName())
 	str += fmt.Sprintf("Level: %d\n", e.GetLevel())
 	str += fmt.Sprintf("HP: %d\n", e.GetHP())
 	str += fmt.Sprintf("XP Given: %d\n", e.GetXpGiven())
-	str += "-------------------------------------------------\n"
+	str += stringsRPG.Separator_Inline
 	str += fmt.Sprintf("Weapon: %s\n", e.Person.Weapon.GetName())
-	str += fmt.Sprintf("Level: %d\n", e.Person.Weapon.GetLevel())
+	str += fmt.Sprintf("Weapon Level: %d\n", e.Person.Weapon.GetLevel())
 	str += fmt.Sprintf("Damage Type: %v\n", e.Person.Weapon.GetDamageType())
 	str += fmt.Sprintf("Damage: %v\n", e.Person.Weapon.GetDamage())
 	str += fmt.Sprintf("Attack Speed: %v\n", e.Person.Weapon.GetAttackSpeed())
-	str += "-------------------------------------------------\n"
+	str += stringsRPG.Separator_Inline
 	str += fmt.Sprintf("Armor: %s\n", e.Person.Armor.GetName())
-	str += fmt.Sprintf("Level: %d\n", e.Person.Armor.GetLevel())
+	str += fmt.Sprintf("Armor Level: %d\n", e.Person.Armor.GetLevel())
 	str += fmt.Sprintf("Defense: %d\n", e.Person.Armor.GetDefense())
 	str += fmt.Sprintf("Weight: %d\n", e.Person.Armor.GetWeight())
-	str += "-------------------------------------------------\n"
+	str += stringsRPG.Separator_Inline
 
 	return str
 }

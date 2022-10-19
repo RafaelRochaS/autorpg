@@ -36,7 +36,7 @@ func (c *CombatImpl) executeCombat() {
 	printStartCombat(*c)
 
 	if utils.DEBUG == "True" {
-		fmt.Print("[***DEBUG] ")
+		fmt.Print(stringsRPG.Debug)
 		fmt.Printf("Player DPS: %f\tEnemy DPS: %f\n", c.playerDPS, c.enemyDPS)
 	}
 
