@@ -22,7 +22,7 @@ Level 30-40: first name level 1 last name level 2 ...
 /** NAMES **/
 var firstNames_1 = []string{"Foot Soldier", "Foot Archer", "Foot Horsemen", "Foot Wizard"}
 var lastNames_1 = []string{"Weak boy", "Trash tier", "No skill", "N00b"}
-var firstNames_2 = []string{"Sargeant", "Ranger", "Knight", "Mage"}
+var firstNames_2 = []string{"Sergeant", "Ranger", "Knight", "Mage"}
 var lastNames_2 = []string{"Upcoming", "Kinda good", "Shows promise", "Getting there"}
 var firstNames_3 = []string{"Champion", "Legolas", "Charger", "BattleMage"}
 var lastNames_3 = []string{"Next Level", "MFer", "Hardcore", "Killer"}

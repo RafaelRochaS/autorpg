@@ -220,7 +220,7 @@ func TestCharacterItems(t *testing.T) {
 		}
 	})
 
-	t.Run("Check Weapon Drop - unuseable", func(t *testing.T) {
+	t.Run("Check Weapon Drop - unusable", func(t *testing.T) {
 		setDefaultEquipment()
 		testWeaponItem := createTestItem(1, 999, 999, 999)
 		testWeapon := &item.WeaponImpl{
@@ -232,11 +232,11 @@ func TestCharacterItems(t *testing.T) {
 
 		char.HandleWeaponDrop(testWeapon)
 		if char.GetWeapon().GetName() == itemTestName {
-			t.Error("Character Items Error - Handle weapon drop - unuseable :: was not supposed to equip")
+			t.Error("Character Items Error - Handle weapon drop - unusable :: was not supposed to equip")
 		}
 	})
 
-	t.Run("Check Armor Drop - unuseable", func(t *testing.T) {
+	t.Run("Check Armor Drop - unusable", func(t *testing.T) {
 		setDefaultEquipment()
 		testArmorItem := createTestItem(1, 999, 999, 999)
 		testArmor := &item.ArmorImpl{
@@ -247,7 +247,7 @@ func TestCharacterItems(t *testing.T) {
 
 		char.HandleArmorDrop(testArmor)
 		if char.GetArmor().GetName() == itemTestName {
-			t.Error("Character Items Error - Handle armor drop - unuseable :: was not supposed to equip")
+			t.Error("Character Items Error - Handle armor drop - unusable :: was not supposed to equip")
 		}
 	})
 

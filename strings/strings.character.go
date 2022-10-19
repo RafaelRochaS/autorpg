@@ -4,7 +4,7 @@ const CharCreation = `Welcome to the character creation screen. Below you will f
 with, as well as how many points each gain per level (the + after the value).`
 
 const StatsScreen = `Strength: Affects damage dealt and weapons that can be handled
-Constitution: Affects damage taken and equipment that can be equiped
+Constitution: Affects damage taken and equipment that can be equipped
 Dexterity: Affects damage dealt and weapons that can be handled
 Intelligence: Affects magical damage and weapons that can be handled
 Luck: Affects equipment loot drop 
